@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _jumpSpeed;
     private PlayerInputController _playerInputController;
+    private GroundController _groundController;
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
+    private int _jumpsLeft = 1;
 
     private void Awake()
     {
         _playerInputController = GetComponent<PlayerInputController>();
+        _groundController = GetComponent<GroundController>();
         _rigidbody = GetComponent<Rigidbody>();
         
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
@@ -31,6 +34,14 @@ public class PlayerController : MonoBehaviour
     
     private void JumpButtonPressed()
     {
-        _jumpTriggered = true;
+        if (_groundController.IsGrounded)
+        {
+            _jumpTriggered = true;
+            _jumpsLeft = 1;
+        } else if (_jumpsLeft > 0)
+        {
+            _jumpsLeft--;
+            _jumpTriggered = true;
+        }
     }
 }

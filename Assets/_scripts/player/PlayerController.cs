@@ -1,6 +1,7 @@
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] 
     private float _speed;
     [SerializeField]

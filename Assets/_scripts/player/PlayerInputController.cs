@@ -6,6 +6,7 @@ public class PlayerInputController : MonoBehaviour
 {
     public Vector2 MovementInputVector { get; private set; }
     public event Action OnJumpButtonPressed;
+    public event Action OnMaskAbilityButtonPressed;
 
     private void OnMove(InputValue inputValue)
     {
@@ -17,6 +18,14 @@ public class PlayerInputController : MonoBehaviour
         if (inputValue.isPressed)
         {
             OnJumpButtonPressed?.Invoke();
+        }
+    }
+    
+    private void OnMaskAbility(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnMaskAbilityButtonPressed?.Invoke();
         }
     }
 }

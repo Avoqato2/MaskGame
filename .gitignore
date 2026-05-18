@@ -108,5 +108,5 @@ InitTestScene*.unity*
 .DS_Store
 
 # Rider
-.idea/**
+**/.idea/**
 *.sln.iml

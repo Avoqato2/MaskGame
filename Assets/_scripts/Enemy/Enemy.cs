@@ -5,6 +5,6 @@ public class Enemy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        Debug.Log(other.gameObject.tag);
     }
 }

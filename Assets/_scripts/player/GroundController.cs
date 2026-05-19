@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GroundController : MonoBehaviour
 {
+    // I stole this shit i am to lazy to explain it
+    // actually i can not explain it pls watch YouTube Video on Ground detection.
     [SerializeField]
     private float _groundDistanceTolerance;
     

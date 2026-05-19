@@ -8,6 +8,17 @@ public class PlayerController : MonoBehaviour
     private float _jumpSpeed;
     [SerializeField]
     private float _rotationSpeed = 5f; 
+
+	[Header("Mask Settings")]
+	[SerializeField]
+	private MaskType _currentMask = MaskType.None;
+
+	[Header("Dash Mask Settings")]
+	[SerializeField]
+	private float _dashSpeed;
+	[SerializeField]
+	private float _dashDuration;	
+
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
@@ -15,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     private int _jumpsLeft = 1;
+
+	
 
     private void Awake()
     {
@@ -24,10 +37,14 @@ public class PlayerController : MonoBehaviour
         _targetRotation = _rigidbody.rotation;
         
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
+		_playerInputController.OnCycleMaskButtonPressed += CycleMaskButtonPressed;
+		_playerInputController.OnMaskAbilityButtonPressed += MaskAbilityButtonPressed;
     }
 
     private void Update()
     {
+		if (_isD		
+
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
         if (_currentMovementInput != Vector3.zero)
         {
@@ -60,5 +77,10 @@ public class PlayerController : MonoBehaviour
             _jumpsLeft--;
             _jumpTriggered = true;
         }
+    }
+	
+	private void CycleMaskButtonPressed()
+    {
+        Debug.Log("Current Mask: " + _currentMask);
     }
 }

@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject Player;
-    private Vector3 OffSet;
+    [Header("Camera Settings")]
+    [SerializeField] private GameObject _player;
+    [SerializeField] private float _cameraHeight = 12.5f;
+    private Vector3 _offSet;
 	
     void Start(){
-        OffSet = transform.position;
+        _offSet = transform.position;
     }
 	
     void LateUpdate()
     {
         //camera Position vom Player + Offset
-        transform.position = new Vector3(Player.transform.position.x + OffSet.x,12.5f, Player.transform.position.z + OffSet.z);
+        transform.position = new Vector3(_player.transform.position.x + _offSet.x,_cameraHeight, _player.transform.position.z + _offSet.z);
     }
 }

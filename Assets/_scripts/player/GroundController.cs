@@ -23,12 +23,12 @@ public class GroundController : MonoBehaviour
 
     void Update()
     {
-        float spherCastRadius = _capsuleCollider.radius - 0.1f;
-        Vector3 spherCastOrigin = transform.position +  new Vector3(0, _capsuleCollider.radius, 0);
+        float sphereCastRadius = _capsuleCollider.radius - 0.1f;
+        Vector3 sphereCastOrigin = transform.position +  new Vector3(0, _capsuleCollider.radius, 0);
 
         bool isGroundBelow = Physics.SphereCast(
-            spherCastOrigin,
-            spherCastRadius, 
+            sphereCastOrigin,
+            sphereCastRadius, 
             Vector3.down, 
             out RaycastHit hitinfo, 
             1000, 

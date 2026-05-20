@@ -1,4 +1,12 @@
 using UnityEngine;
+
+public enum MaskType
+{
+    None,
+    Dash,
+    Attack,
+	Block
+}
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -43,8 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-		if (_isD		
-
+		//if (_isD		
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
         if (_currentMovementInput != Vector3.zero)
         {
@@ -82,5 +89,22 @@ public class PlayerController : MonoBehaviour
 	private void CycleMaskButtonPressed()
     {
         Debug.Log("Current Mask: " + _currentMask);
+    }
+
+	private void MaskAbilityButtonPressed()
+    {
+        /*switch (_currentMask)
+        {
+            case MaskType.Dash:
+                StartCoroutine(Dash());
+                break;
+            case MaskType.Attack:
+                // Implement attack ability
+                break;
+            case MaskType.Block:
+                // Implement block ability
+                break;
+        }*/
+		return;
     }
 }

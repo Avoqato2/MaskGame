@@ -381,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5ddaf5830e54841a4030e4ee9e2689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  Player: {fileID: 1702144666}
-  player: {fileID: 1702144673}
+  _player: {fileID: 1702144666}
+  _cameraHeight: 12.5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +595,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _speed: 7
   _jumpSpeed: 7
+  _dashSpeed: 20
+  _dashTime: 0.25
+  _dashCooldown: 1.5
+  _rotationSpeed: 5
 --- !u!114 &1702144668
 MonoBehaviour:
   m_ObjectHideFlags: 0

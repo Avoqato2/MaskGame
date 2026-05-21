@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
+    // this Inputsystem relies on the file named Player
     public Vector2 MovementInputVector { get; private set; }
     public event Action OnJumpButtonPressed;
     public event Action OnCycleMaskButtonPressed;
     public event Action OnExecuteMaskAbilityButtonPressed;
+    public event Action OnDashButtonPressed;
 
     private void OnMove(InputValue inputValue)
     {
@@ -19,6 +21,14 @@ public class PlayerInputController : MonoBehaviour
         if (inputValue.isPressed)
         {
             OnJumpButtonPressed?.Invoke();
+        }
+    }
+
+    private void OnDash(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnDashButtonPressed?.Invoke();
         }
     }
     

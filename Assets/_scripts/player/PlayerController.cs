@@ -1,10 +1,30 @@
 using System.Collections;
 using UnityEngine;
+
+public enum MaskType
+{
+    None,
+    Dash,
+    Attack,
+	Block
+}
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float _speed;
-    [SerializeField] private float _jumpSpeed;
+    [SerializeField] 
+    private float _speed;
+    [SerializeField]
+    private float _jumpSpeed;
+    
+    [Header("Health Settings")]
+    [SerializeField] private float _maxHealth = 100f;
+    private float _currentHealth;
+    
+	[Header("Mask Settings")]
+	[SerializeField]
+	private MaskType _currentMask = MaskType.None;
+    [SerializeField] private PlayerUI _playerUI;
+
     [Header("Dash Settings")]
     [SerializeField] private float _dashSpeed = 20f;
     [SerializeField] private float _dashTime = 0.25f;
@@ -20,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private bool _dashTriggered;
     private float _nextDashTime;
     private int _jumpsLeft = 1;
+    
 
     private void Awake()
     {   //Initiate the Components you need
@@ -29,6 +50,10 @@ public class PlayerController : MonoBehaviour
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
+		_playerInputController.OnCycleMaskButtonPressed += CycleMaskButtonPressed;
+		_playerInputController.OnExecuteMaskAbilityButtonPressed += ExecuteMaskAbilityButtonPressed;
+        
+        _currentHealth = _maxHealth;
         _playerInputController.OnDashButtonPressed += DashButtonPressed;
     }
 
@@ -79,6 +104,36 @@ public class PlayerController : MonoBehaviour
             _jumpTriggered = true;
         }
     }
+	
+	private void CycleMaskButtonPressed()
+    {
+        int nextMaskIndex = ((int)_currentMask + 1) % System.Enum.GetValues(typeof(MaskType)).Length;
+        _currentMask = (MaskType)nextMaskIndex;
+        Debug.Log("Current Mask: " + _currentMask);
+    }
+
+	private void ExecuteMaskAbilityButtonPressed()
+    {
+        switch (_currentMask)
+        {
+            case MaskType.None:
+                Debug.Log("no mask equipped");
+                break;
+            case MaskType.Dash:
+                PerformDashPlaceholder();
+                break;
+            case MaskType.Attack:
+                PerformAttackPlaceholder();
+                break;
+            case MaskType.Block:
+                PerformBlockPlaceholder();
+                break;
+        }
+    }
+    
+    private void PerformDashPlaceholder() { Debug.Log("zoooom dash"); }
+    private void PerformAttackPlaceholder() { Debug.Log("atttaaack"); }
+    private void PerformBlockPlaceholder() { Debug.Log("block block"); }
 
     private IEnumerator Dash()
     {

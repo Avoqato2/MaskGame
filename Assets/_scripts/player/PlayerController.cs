@@ -11,10 +11,8 @@ public enum MaskType
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] 
-    private float _speed;
-    [SerializeField]
-    private float _jumpSpeed;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _jumpSpeed;
     
     [Header("Health Settings")]
     [SerializeField] private float _maxHealth = 100f;
@@ -29,8 +27,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashSpeed = 20f;
     [SerializeField] private float _dashTime = 0.25f;
     [SerializeField] private float _dashCooldown = 1.5f;
+    
     [Header("Rotation Settings")]
-    [SerializeField] private float _rotationSpeed = 5f; 
+    [SerializeField] private float _rotationSpeed = 5f;
+    
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;

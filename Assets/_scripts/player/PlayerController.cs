@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// enum for the different mask types, so we can easily switch, public so it can be used in other scripts like the UI
 public enum MaskType
 {
     None,
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashSpeed = 20f;
     [SerializeField] private float _dashTime = 0.25f;
     [SerializeField] private float _dashCooldown = 1.5f;
+    
+    [Header ("Shield Settings")]
+    [SerializeField] private float _shieldTime = 2f;
+    [SerializeField] private float _shieldCooldown = 3f;
     
     [Header("Rotation Settings")]
     [SerializeField] private float _rotationSpeed = 5f;
@@ -107,20 +112,25 @@ public class PlayerController : MonoBehaviour
 	
 	private void CycleMaskButtonPressed()
     {
-        int nextMaskIndex = ((int)_currentMask + 1) % System.Enum.GetValues(typeof(MaskType)).Length;
-        _currentMask = (MaskType)nextMaskIndex;
+        int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them
+        int nextMaskIndex = ((int)_currentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
+        _currentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
         Debug.Log("Current Mask: " + _currentMask);
     }
 
 	private void ExecuteMaskAbilityButtonPressed()
     {
+        // der code ist die doku, ich hasse kommentare schreiben
         switch (_currentMask)
         {
             case MaskType.None:
                 Debug.Log("no mask equipped");
                 break;
             case MaskType.Dash:
-                PerformDashPlaceholder();
+                if (!_dashTriggered && Time.time > _nextDashTime)
+                {
+                    StartCoroutine(Dash());
+                }
                 break;
             case MaskType.Attack:
                 PerformAttackPlaceholder();
@@ -130,8 +140,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    
-    private void PerformDashPlaceholder() { Debug.Log("zoooom dash"); }
     private void PerformAttackPlaceholder() { Debug.Log("atttaaack"); }
     private void PerformBlockPlaceholder() { Debug.Log("block block"); }
 
@@ -153,13 +161,5 @@ public class PlayerController : MonoBehaviour
         }
         _nextDashTime = Time.time + _dashCooldown;
         _dashTriggered = false; // stop
-    }
-
-    private void DashButtonPressed()
-    {
-        if (!_dashTriggered && Time.time > _nextDashTime)
-        {
-            StartCoroutine(Dash());
-        }
     }
 }

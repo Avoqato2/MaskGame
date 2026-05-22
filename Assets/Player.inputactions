@@ -79,15 +79,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "c1269167-22c0-48c3-accb-7e5834462a62",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CycleMask",
                     "type": "Button",
                     "id": "10e37bb5-c188-4805-ac8b-78af8a16a914",
@@ -357,39 +348,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8a2e43f2-ccee-4052-a3b1-35b7340cae1e",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6d366087-5971-425a-9903-e88b37a4092a",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bf61952a-6c4c-48d1-b7f1-a92aea4884b1",
-                    "path": "<XRController>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

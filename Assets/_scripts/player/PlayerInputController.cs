@@ -9,7 +9,6 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnJumpButtonPressed;
     public event Action OnCycleMaskButtonPressed;
     public event Action OnExecuteMaskAbilityButtonPressed;
-    public event Action OnDashButtonPressed;
 
     private void OnMove(InputValue inputValue)
     {
@@ -21,14 +20,6 @@ public class PlayerInputController : MonoBehaviour
         if (inputValue.isPressed)
         {
             OnJumpButtonPressed?.Invoke();
-        }
-    }
-
-    private void OnDash(InputValue inputValue)
-    {
-        if (inputValue.isPressed)
-        {
-            OnDashButtonPressed?.Invoke();
         }
     }
     

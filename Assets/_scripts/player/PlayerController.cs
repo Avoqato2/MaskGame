@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
+// enum for the different mask types, so we can easily switch, public so it can be used in other scripts like the UI
 public enum MaskType
 {
     None,
     Dash,
     Attack,
-	Block
+	Shield
 }
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _dashTime = 0.25f;
     [SerializeField] private float _dashCooldown = 1.5f;
     
+    [Header ("Shield Settings")]
+    [SerializeField] private float _shieldTime = 2f;
+    [SerializeField] private float _shieldCooldown = 3f;
+    
     [Header("Rotation Settings")]
     [SerializeField] private float _rotationSpeed = 5f;
     
@@ -38,7 +43,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     private bool _dashTriggered;
+    private bool _shieldTriggered;
+    private bool _isInvincible;
     private float _nextDashTime;
+    private float _nextShieldTime;
+    
     private int _jumpsLeft = 1;
     
 
@@ -54,7 +63,6 @@ public class PlayerController : MonoBehaviour
 		_playerInputController.OnExecuteMaskAbilityButtonPressed += ExecuteMaskAbilityButtonPressed;
         
         _currentHealth = _maxHealth;
-        _playerInputController.OnDashButtonPressed += DashButtonPressed;
     }
 
     private void Update()
@@ -107,33 +115,38 @@ public class PlayerController : MonoBehaviour
 	
 	private void CycleMaskButtonPressed()
     {
-        int nextMaskIndex = ((int)_currentMask + 1) % System.Enum.GetValues(typeof(MaskType)).Length;
-        _currentMask = (MaskType)nextMaskIndex;
+        int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them
+        int nextMaskIndex = ((int)_currentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
+        _currentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
         Debug.Log("Current Mask: " + _currentMask);
     }
 
 	private void ExecuteMaskAbilityButtonPressed()
     {
+        // der code ist die doku, ich hasse kommentare schreiben
         switch (_currentMask)
         {
             case MaskType.None:
                 Debug.Log("no mask equipped");
                 break;
             case MaskType.Dash:
-                PerformDashPlaceholder();
+                if (!_dashTriggered && Time.time > _nextDashTime)
+                {
+                    StartCoroutine(Dash());
+                }
                 break;
             case MaskType.Attack:
                 PerformAttackPlaceholder();
                 break;
-            case MaskType.Block:
-                PerformBlockPlaceholder();
+            case MaskType.Shield:
+                if (!_shieldTriggered && Time.time > _nextShieldTime)
+                {
+                    StartCoroutine(Shield());
+                }
                 break;
         }
     }
-    
-    private void PerformDashPlaceholder() { Debug.Log("zoooom dash"); }
     private void PerformAttackPlaceholder() { Debug.Log("atttaaack"); }
-    private void PerformBlockPlaceholder() { Debug.Log("block block"); }
 
     private IEnumerator Dash()
     {
@@ -154,12 +167,23 @@ public class PlayerController : MonoBehaviour
         _nextDashTime = Time.time + _dashCooldown;
         _dashTriggered = false; // stop
     }
-
-    private void DashButtonPressed()
+    
+    private IEnumerator Shield()
     {
-        if (!_dashTriggered && Time.time > _nextDashTime)
+        _shieldTriggered = true;
+        _isInvincible = true;
+        Debug.Log("nooooo damage for me");
+        float startTime = Time.time;
+
+        while (Time.time < startTime + _shieldTime)
         {
-            StartCoroutine(Dash());
+            yield return new WaitForFixedUpdate();
         }
+        
+        _nextShieldTime = Time.time + _shieldCooldown;
+        _isInvincible = false;
+        _shieldTriggered = false;
+        
+        // das gehört irgwie ausgelagert weil damage health stuff sollte hier ja nicht rein
     }
 }

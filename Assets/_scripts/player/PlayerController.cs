@@ -7,7 +7,7 @@ public enum MaskType
     None,
     Dash,
     Attack,
-	Block
+	Shield
 }
 public class PlayerController : MonoBehaviour
 {
@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
 		_playerInputController.OnExecuteMaskAbilityButtonPressed += ExecuteMaskAbilityButtonPressed;
         
         _currentHealth = _maxHealth;
-        _playerInputController.OnDashButtonPressed += DashButtonPressed;
     }
 
     private void Update()
@@ -135,7 +134,7 @@ public class PlayerController : MonoBehaviour
             case MaskType.Attack:
                 PerformAttackPlaceholder();
                 break;
-            case MaskType.Block:
+            case MaskType.Shield:
                 PerformBlockPlaceholder();
                 break;
         }
@@ -161,5 +160,11 @@ public class PlayerController : MonoBehaviour
         }
         _nextDashTime = Time.time + _dashCooldown;
         _dashTriggered = false; // stop
+    }
+    
+    private void Shield()
+    {
+        //yea
+        return;
     }
 }

@@ -43,7 +43,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     private bool _dashTriggered;
+    private bool _shieldTriggered;
+    private bool _isInvincible;
     private float _nextDashTime;
+    private float _nextShieldTime;
+    
     private int _jumpsLeft = 1;
     
 
@@ -135,12 +139,14 @@ public class PlayerController : MonoBehaviour
                 PerformAttackPlaceholder();
                 break;
             case MaskType.Shield:
-                PerformBlockPlaceholder();
+                if (!_shieldTriggered && Time.time > _nextShieldTime)
+                {
+                    StartCoroutine(Shield());
+                }
                 break;
         }
     }
     private void PerformAttackPlaceholder() { Debug.Log("atttaaack"); }
-    private void PerformBlockPlaceholder() { Debug.Log("block block"); }
 
     private IEnumerator Dash()
     {
@@ -162,9 +168,22 @@ public class PlayerController : MonoBehaviour
         _dashTriggered = false; // stop
     }
     
-    private void Shield()
+    private IEnumerator Shield()
     {
-        //yea
-        return;
+        _shieldTriggered = true;
+        _isInvincible = true;
+        Debug.Log("nooooo damage for me");
+        float startTime = Time.time;
+
+        while (Time.time < startTime + _shieldTime)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        
+        _nextShieldTime = Time.time + _shieldCooldown;
+        _isInvincible = false;
+        _shieldTriggered = false;
+        
+        // das gehört irgwie ausgelagert weil damage health stuff sollte hier ja nicht rein
     }
 }

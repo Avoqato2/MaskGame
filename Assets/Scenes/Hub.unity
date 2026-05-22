@@ -595,6 +595,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _speed: 7
   _jumpSpeed: 7
+  _maxHealth: 100
+  _currentMask: 0
+  _playerUI: {fileID: 0}
   _dashSpeed: 20
   _dashTime: 0.25
   _dashCooldown: 1.5

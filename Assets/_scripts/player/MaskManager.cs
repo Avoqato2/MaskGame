@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // enum for the different mask types, so we can easily switch, public so it can be used in other scripts like the UI
 public enum MaskType

@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if(_dashTriggered)return; // Dont rotate on dash
         if(_maskManager.DashTriggered) return; // no rotate on dash
         
         //safe the Movement direction
@@ -53,8 +52,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //if(_dashTriggered)return; //Dont touch my Rigidbody while Dashing couse you stink
-        if(_maskManager.DashTriggered) return;
+        if(_maskManager.DashTriggered) return; //Dont touch my Rigidbody while Dashing couse you stink
         // Smooth PlayerRotation
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _rotationSpeed * Time.fixedDeltaTime));
         

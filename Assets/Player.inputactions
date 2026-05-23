@@ -73,7 +73,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "1aa11f9c-f351-411a-a832-16e4ddfa87d7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -453,7 +453,7 @@
                 {
                     "name": "",
                     "id": "53417f6a-4c0d-40f1-8d79-8aedb7b4e668",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -464,7 +464,7 @@
                 {
                     "name": "",
                     "id": "c37b4ba5-5da8-4932-b865-e908bd865332",
-                    "path": "<Keyboard>/v",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

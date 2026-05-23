@@ -381,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5ddaf5830e54841a4030e4ee9e2689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  _player: {fileID: 0}
-  _cameraHeight: 12.5
+  _playerTransform: {fileID: 1663850296}
+  _cameraHeight: 12
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

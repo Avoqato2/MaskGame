@@ -40,9 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(_maskManager.DashTriggered) return; // no rotate on dash
-        
-        //safe the Movement direction
+       //safe the Movement direction
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
         if (_currentMovementInput != Vector3.zero) // "null" exeption
         {

@@ -3,9 +3,8 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement Settings")] [SerializeField]
-    private float _speed;
-
+    [Header("Movement Settings")] 
+    [SerializeField] private float _speed;
     [SerializeField] private float _jumpSpeed;
 
     [Header("Health Settings")] [SerializeField]
@@ -23,12 +22,13 @@ public class PlayerController : MonoBehaviour
     private MaskManager _maskManager; // now a separate script
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
-    public bool attackTriggered;
+    
+    public bool AttackTriggered {get; private set;} // maybe for future purposes public now it could be private
 
     private int _jumpsLeft = 1;
 
     public Vector3 CurrentMovementInput => _currentMovementInput; // so other scripts can access it (maskmanager)
-    public event Action OnJumpPerformed;
+    public event Action OnJumpPerformed; // For animatorController
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         //safe the Movement direction
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f,
             _playerInputController.MovementInputVector.y).normalized;
-        if (_currentMovementInput != Vector3.zero) // "null" exeption
+        if (_currentMovementInput != Vector3.zero) // "null" exception
         {
             _targetRotation = Quaternion.LookRotation(_currentMovementInput);
         }
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (attackTriggered) return;
+        if (AttackTriggered) return; // stop Movement couse ur punching
         if (_maskManager.DashTriggered) return; //Dont touch my Rigidbody while Dashing couse you stink
         // Smooth PlayerRotation
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         {
             _jumpTriggered = true;
             _jumpsLeft = 1; // set jump to 1 couse u touched the ground
-            OnJumpPerformed?.Invoke();
+            OnJumpPerformed?.Invoke(); // Do Animation on Jump
         }
         else if (_jumpsLeft > 0) // if u have 1 jump left, jump again
         {
@@ -101,6 +101,11 @@ public class PlayerController : MonoBehaviour
 
     private void AttackButtonPressed()
     {
-        attackTriggered = true;
+        AttackTriggered = true; // stoping movement couse ur punching
+    }
+
+    public void EndAttack()
+    {
+        AttackTriggered = false; // Setting movement free again
     }
 }

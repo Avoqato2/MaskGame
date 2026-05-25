@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0089946
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.041313
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -362,6 +362,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
       propertyPath: m_Name
       value: PuppeProttyp
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5b28d91526e63e14dae216504c53d8cb, type: 2}
+    - target: {fileID: 5866666021909216657, guid: ffe59215b1fe25040856c29a8173debb, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1013,6 +1025,7 @@ GameObject:
   - component: {fileID: 1702144674}
   - component: {fileID: 1702144670}
   - component: {fileID: 1702144669}
+  - component: {fileID: 1702144677}
   - component: {fileID: 1702144668}
   - component: {fileID: 1702144667}
   - component: {fileID: 1702144675}
@@ -1185,6 +1198,18 @@ MonoBehaviour:
   _dashCooldown: 1.5
   _shieldTime: 2
   _shieldCooldown: 3
+--- !u!114 &1702144677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702144666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf8ffe2e9fd545d6bf65968166ef2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
 --- !u!1 &1985641343
 GameObject:
   m_ObjectHideFlags: 0

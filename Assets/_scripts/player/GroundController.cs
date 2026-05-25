@@ -1,30 +1,32 @@
 using UnityEngine;
-
-public class GroundController : MonoBehaviour
+using System;
+[Serializable]
+public class GroundController
 {
     // I stole this shit i am to lazy to explain it
     // actually i can not explain it pls watch YouTube Video on Ground detection.
-    [SerializeField]
-    private float _groundDistanceTolerance;
+    public float _groundDistanceTolerance = 0.1f;
     
-    [SerializeField]
-    private LayerMask _groundLayerMask;
+    public LayerMask _groundLayerMask;
     
     private CapsuleCollider _capsuleCollider;
+    
+    private Transform _transform;
     
     public bool IsGrounded { get; private set; }
 
     public float? DistanceToGround { get; private set; }
 
-    private void Awake()
+    public void Init(CapsuleCollider capsuleCollider, Transform transform)
     {
-        _capsuleCollider = GetComponent<CapsuleCollider>();
+        _capsuleCollider = capsuleCollider;
+        _transform = transform;
     }
 
-    void Update()
+    public void CheckGround()
     {
         float sphereCastRadius = _capsuleCollider.radius - 0.1f;
-        Vector3 sphereCastOrigin = transform.position +  new Vector3(0, _capsuleCollider.radius, 0);
+        Vector3 sphereCastOrigin = _transform.position +  new Vector3(0, _capsuleCollider.radius, 0);
 
         bool isGroundBelow = Physics.SphereCast(
             sphereCastOrigin,
@@ -37,7 +39,7 @@ public class GroundController : MonoBehaviour
 
         if (isGroundBelow)
         {
-            DistanceToGround = transform.position.y - hitinfo.point.y;
+            DistanceToGround = _transform.position.y - hitinfo.point.y;
         }
         else
         {

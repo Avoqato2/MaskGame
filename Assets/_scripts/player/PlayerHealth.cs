@@ -1,16 +1,28 @@
 using UnityEngine;
+using System;
 
-public class PlayerHealth : MonoBehaviour
+[Serializable]
+public class PlayerHealth //First darft of Health system
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float MaxHealth = 100f;
+    private float _currentHealth;
+    public void Init()
     {
-        
+        _currentHealth = MaxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float amount)
     {
-        
+        _currentHealth -= amount;
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player ist gestorben!");
+        // Hier Gameover logik bzw event.
     }
 }

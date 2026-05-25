@@ -1025,11 +1025,8 @@ GameObject:
   - component: {fileID: 1702144674}
   - component: {fileID: 1702144670}
   - component: {fileID: 1702144669}
-  - component: {fileID: 1702144677}
   - component: {fileID: 1702144668}
   - component: {fileID: 1702144667}
-  - component: {fileID: 1702144675}
-  - component: {fileID: 1702144676}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1049,10 +1046,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd6a25e6b9cc464d8aa252f82150cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _speed: 7
-  _jumpSpeed: 7
-  _maxHealth: 100
-  _rotationSpeed: 10
+  movement:
+    speed: 7
+    jumpSpeed: 7
+    rotationSpeed: 5
+  _health:
+    MaxHealth: 100
+  _groundController:
+    _groundDistanceTolerance: 0.1
+    _groundLayerMask:
+      serializedVersion: 2
+      m_Bits: 8
+  _maskManager:
+    CurrentMask: 0
+    PlayerUI: {fileID: 0}
+    DashSpeed: 20
+    DashTime: 0.25
+    DashCooldown: 1.5
+    ShieldTime: 2
+    ShieldCooldown: 3
 --- !u!114 &1702144668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,53 +1175,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1702144675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702144666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb533eed445eae1419e76173e8605932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GroundController
-  _groundDistanceTolerance: 0.1
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
---- !u!114 &1702144676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702144666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab18d809dbcc4c078defbefaadb528f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MaskManager
-  _currentMask: 0
-  _playerUI: {fileID: 0}
-  _dashSpeed: 20
-  _dashTime: 0.25
-  _dashCooldown: 1.5
-  _shieldTime: 2
-  _shieldCooldown: 3
---- !u!114 &1702144677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702144666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf8ffe2e9fd545d6bf65968166ef2e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
 --- !u!1 &1985641343
 GameObject:
   m_ObjectHideFlags: 0

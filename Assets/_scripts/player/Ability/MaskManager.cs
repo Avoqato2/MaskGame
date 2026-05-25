@@ -1,6 +1,5 @@
-using System.Collections;
 using UnityEngine;
-
+using System;
 // enum for the different mask types, so we can easily switch, public so it can be used in other scripts like the UI
 public enum MaskType
 {
@@ -9,118 +8,119 @@ public enum MaskType
     Attack,
     Shield
 }
-public class MaskManager : MonoBehaviour
-{
+// We like Vibe coding xD
+[Serializable]
+public class MaskManager 
+{ 
     [Header("Mask Settings")]
-	[SerializeField]
-	private MaskType _currentMask = MaskType.None;
-    [SerializeField] private PlayerUI _playerUI;
+    public MaskType CurrentMask = MaskType.None;
+    public PlayerUI PlayerUI;
 
     [Header("Dash Settings")]
-    [SerializeField] private float _dashSpeed = 20f;
-    [SerializeField] private float _dashTime = 0.25f;
-    [SerializeField] private float _dashCooldown = 1.5f;
+    public float DashSpeed = 20f;
+    public float DashTime = 0.25f;
+    public float DashCooldown = 1.5f;
     
-    [Header ("Shield Settings")]
-    [SerializeField] private float _shieldTime = 2f;
-    [SerializeField] private float _shieldCooldown = 3f;
-    
-    private PlayerInputController _playerInputController;
-    private PlayerController _playerController;
-    private Rigidbody _rigidbody;
-    
-    private bool _dashTriggered;
-    private bool _shieldTriggered;
-    private bool _isInvincible;
+    [Header ("Shield Settings")] 
+    public float ShieldTime = 2f;
+    public float ShieldCooldown = 3f;
+    public bool IsDashing { get; private set; }
+    private float _dashEndTime;
     private float _nextDashTime;
+
+    public bool IsInvincible { get; private set; }
+    private float _shieldEndTime;
     private float _nextShieldTime;
     
-    public bool DashTriggered => _dashTriggered;
-    public bool IsInvincible => _isInvincible;
-    private void Awake()
-    {
-        _playerInputController = GetComponent<PlayerInputController>();
-        _playerController = GetComponent<PlayerController>();
-        _rigidbody = GetComponent<Rigidbody>();
-        
-        _playerInputController.OnCycleMaskButtonPressed += CycleMaskButtonPressed;
-        _playerInputController.OnExecuteMaskAbilityButtonPressed += ExecuteMaskAbilityButtonPressed;
-    }
-    
-    private void CycleMaskButtonPressed()
+    public void CycleMask()
     {
         int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them
-        int nextMaskIndex = ((int)_currentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
-        _currentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
-        Debug.Log("Current Mask: " + _currentMask);
+        int nextMaskIndex = ((int)CurrentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
+        CurrentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
+        Debug.Log("Current Mask: " + CurrentMask);
         
         //todo: ui info update
     }
     
-    private void ExecuteMaskAbilityButtonPressed()
+    public void ExecuteMaskAbility()
     {
         // der code ist die doku, ich hasse kommentare schreiben
-        switch (_currentMask)
+        switch (CurrentMask)
         {
             case MaskType.None:
                 Debug.Log("no mask equipped");
                 break;
             case MaskType.Dash:
-                if (!_dashTriggered && Time.time > _nextDashTime)
-                {
-                    StartCoroutine(Dash());
-                }
+                TryDash();
                 break;
             case MaskType.Attack:
                 PerformAttackPlaceholder();
                 break;
             case MaskType.Shield:
-                if (!_shieldTriggered && Time.time > _nextShieldTime)
-                {
-                    StartCoroutine(Shield());
-                }
+                TryShield();
                 break;
         }
     }
-    
-    private IEnumerator Dash()
+    private void TryDash()
     {
-        _dashTriggered = true; 
-        Vector3 dashDirection = _playerController.CurrentMovementInput;// give me direction please
-        if (dashDirection == Vector3.zero) 
+        if (!IsDashing && Time.time >= _nextDashTime)
         {
-            dashDirection = transform.forward; // if u have no direction please just give me the forward direction
+            IsDashing = true;
+            _dashEndTime = Time.time + DashTime;
         }
-        float startTime = Time.time;
-        while (Time.time < startTime + _dashTime)
+    }
+
+    private void TryShield()
+    {
+        if (!IsInvincible && Time.time >= _nextShieldTime)
         {
-            Vector3 dashVelocity = dashDirection * _dashSpeed;
-            dashVelocity.y = _rigidbody.linearVelocity.y; // gravity and shit
-            _rigidbody.linearVelocity = dashVelocity;
-            yield return new WaitForFixedUpdate(); // Wait till the physics engine says okey
+            IsInvincible = true;
+            _shieldEndTime = Time.time + ShieldTime;
+            Debug.Log("nooooo damage for me");
         }
-        _nextDashTime = Time.time + _dashCooldown;
-        _dashTriggered = false; // stop
+    }
+
+    private void PerformAttackPlaceholder() 
+    { 
+        Debug.Log("atttaaack"); 
+    }
+
+    public void UpdateAbilites(Rigidbody rigidbody, Vector3 movementInput,
+        Transform playerTransform)
+    {
+        UpdateDash(rigidbody, movementInput, playerTransform);
+        UpdateShield();
+    }
+    private void UpdateDash(Rigidbody rigidbody, Vector3 movementInput,
+        Transform playerTransform)
+    {
+        if(!IsDashing)return;
+        if (Time.time >= _dashEndTime)
+        {
+            IsDashing = false;
+            _nextDashTime = Time.time + DashCooldown;
+            return;
+        }
+        
+        Vector3 dashDirection = movementInput;
+        if (dashDirection == Vector3.zero)
+        {
+            dashDirection = playerTransform.forward;
+        }
+        Vector3 dasVelocity = dashDirection * DashSpeed;
+        dasVelocity.y = rigidbody.linearVelocity.y;
+        rigidbody.linearVelocity = dasVelocity;
     }
     
-    private IEnumerator Shield()
+    private void UpdateShield()
     {
-        _shieldTriggered = true;
-        _isInvincible = true;
-        Debug.Log("nooooo damage for me");
-        float startTime = Time.time;
-
-        while (Time.time < startTime + _shieldTime)
+        if(!IsInvincible) return;
+        if (Time.time >= _shieldEndTime)
         {
-            yield return new WaitForFixedUpdate();
+            IsInvincible = false;
+            _nextShieldTime = Time.time + ShieldCooldown;
+            Debug.Log("Shield deactivated!");
         }
-        
-        _nextShieldTime = Time.time + _shieldCooldown;
-        _isInvincible = false;
-        _shieldTriggered = false;
-        
         // das gehört irgwie ausgelagert weil damage health stuff sollte hier ja nicht rein
     }
-    
-    private void PerformAttackPlaceholder() { Debug.Log("atttaaack"); }
 }

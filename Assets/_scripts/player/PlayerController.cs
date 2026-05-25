@@ -1,25 +1,25 @@
 using UnityEngine;
 using System;
-
+// Refactoring was vibecoded hehe
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")] 
-    [SerializeField] private float _speed;
-    [SerializeField] private float _jumpSpeed;
+    [SerializeField] private MovementSettings movement;
 
-    [Header("Health Settings")] [SerializeField]
-    private float _maxHealth = 100f;
-
-    private float _currentHealth;
-
-    [Header("Rotation Settings")] [SerializeField]
-    private float _rotationSpeed = 5f;
+    [Header("Health Settings")] 
+    [SerializeField] private PlayerHealth _health; //Load PlayerHealth Class
+    
+    [Header("Ground Tolerance Settings")]
+    [SerializeField] private GroundController _groundController; //Load GroundController Class
+    
+    [Header("Abilities")]
+    [SerializeField] private MaskManager _maskManager;//Load MaskManager Class
+    
+    [SerializeField]private PlayerAnimationController _playerAnimationController;//Load PlayerAnimationController Class
 
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
-    private GroundController _groundController;
-    private MaskManager _maskManager; // now a separate script
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     
@@ -34,15 +34,19 @@ public class PlayerController : MonoBehaviour
     {
         //Initiate the Components you need
         _playerInputController = GetComponent<PlayerInputController>();
-        _groundController = GetComponent<GroundController>();
-        _maskManager = GetComponent<MaskManager>();
         _rigidbody = GetComponent<Rigidbody>();
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
         _playerInputController.OnAttackButtonPressed += AttackButtonPressed;
-
-        _currentHealth = _maxHealth;
+        _playerInputController.OnCycleMaskButtonPressed += _maskManager.CycleMask; // Sent events directly to MaskManager
+        _playerInputController.OnExecuteMaskAbilityButtonPressed += _maskManager.ExecuteMaskAbility;
+        
+        //Give Classes all Variables they need
+        _groundController.Init(GetComponent<CapsuleCollider>(), transform);
+        _health.Init();
+        Animator modelAnimator = GetComponentInChildren<Animator>();
+        _playerAnimationController.Init(modelAnimator,this,_playerInputController, _groundController);
     }
 
     private void Update()
@@ -54,20 +58,23 @@ public class PlayerController : MonoBehaviour
         {
             _targetRotation = Quaternion.LookRotation(_currentMovementInput);
         }
+        _playerAnimationController.UpdateAnimations(); // read this line u understand
     }
 
     private void FixedUpdate()
     {
+        _maskManager.UpdateAbilites(_rigidbody,_currentMovementInput,transform);
+        if (_maskManager.IsDashing) return; //Dont touch my Rigidbody while Dashing couse you stink
         if (AttackTriggered) return; // stop Movement couse ur punching
-        if (_maskManager.DashTriggered) return; //Dont touch my Rigidbody while Dashing couse you stink
+        _groundController.CheckGround();
         // Smooth PlayerRotation
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,
-            _rotationSpeed * Time.fixedDeltaTime));
+            movement.rotationSpeed * Time.fixedDeltaTime));
 
-        Vector3 velocity = VelocityCalc(_speed);
+        Vector3 velocity = VelocityCalc(movement.speed);
         if (_jumpTriggered)
         {
-            velocity.y = _jumpSpeed;
+            velocity.y = movement.jumpSpeed;
             _jumpTriggered = false;
         }
 
@@ -99,6 +106,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDestroy() // delete stuff for RAM safes
+    {
+        if (_playerInputController != null)
+        {
+            _playerInputController.OnJumpButtonPressed -= JumpButtonPressed;
+            _playerInputController.OnAttackButtonPressed -= AttackButtonPressed;
+            _playerInputController.OnCycleMaskButtonPressed -= _maskManager.CycleMask;
+            _playerInputController.OnExecuteMaskAbilityButtonPressed -= _maskManager.ExecuteMaskAbility;
+        }
+        _playerAnimationController.Cleanup();
+    }
+
     private void AttackButtonPressed()
     {
         AttackTriggered = true; // stoping movement couse ur punching
@@ -108,4 +127,12 @@ public class PlayerController : MonoBehaviour
     {
         AttackTriggered = false; // Setting movement free again
     }
+}
+
+[Serializable]
+public class MovementSettings // Just for Aufklappbar fields 
+{
+    public float speed = 7f;
+    public float jumpSpeed = 7f;
+    public float rotationSpeed = 5f;
 }

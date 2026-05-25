@@ -1,6 +1,8 @@
 using UnityEngine;
+using System;
 
-public class PlayerAnimationController : MonoBehaviour
+[Serializable]
+public class PlayerAnimationController
 {
     private Animator _animator;
     private PlayerController _playerController;
@@ -11,19 +13,20 @@ public class PlayerAnimationController : MonoBehaviour
     // There u can see how the StateMachine for the Animations for the Player are connected.
     // Animationscript also extends to ResetAttackBehaviour.cs
 
-    private void Awake()
+    public void Init(Animator animator, PlayerController playerController, 
+        PlayerInputController playerInputController, GroundController groundController)
     {
         //ini for Componets
-        _animator = GetComponentInChildren<Animator>(); // getting child component (MainCharakter animator)
-        _playerController = GetComponent<PlayerController>();
-        _playerInputController = GetComponent<PlayerInputController>();
-        _groundController = GetComponent<GroundController>();
+        _animator = animator;
+        _playerController = playerController;
+        _playerInputController = playerInputController;
+        _groundController = groundController;
         // ini for events
         _playerController.OnJumpPerformed += TriggerJumpAnimation;
         _playerInputController.OnAttackButtonPressed += TriggerAttackAnimation;
     }
 
-    private void Update()
+    public void UpdateAnimations()
     {
         bool isRunning = _playerController.CurrentMovementInput != Vector3.zero; // set running if currentMovement is moving
         _animator.SetBool("Running", isRunning);
@@ -43,7 +46,7 @@ public class PlayerAnimationController : MonoBehaviour
         _animator.SetTrigger("Punch");
     }
 
-    private void OnDestroy()
+    public void Cleanup()
     {
         if (_playerController != null)
         {

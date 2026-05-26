@@ -27,6 +27,8 @@ public class MaskManager
     
     [Header("Attack Settings")]
     [SerializeField]private AbilityAttack _abilityAttack;
+
+    private PlayerController _playerController;
     public bool IsDashing { get; private set; }
     private float _dashEndTime;
     private float _nextDashTime;
@@ -34,7 +36,11 @@ public class MaskManager
     public bool IsInvincible { get; private set; }
     private float _shieldEndTime;
     private float _nextShieldTime;
-    
+
+    public void Init(PlayerController playerController)
+    {
+        _abilityAttack.Init(playerController);
+    }
     public void CycleMask()
     {
         int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them

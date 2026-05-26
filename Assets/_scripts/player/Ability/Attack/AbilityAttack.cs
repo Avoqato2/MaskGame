@@ -11,15 +11,19 @@ public class AbilityAttack
     public float projectileDiameter = 5f;
     public float AttackTime = 3f;
     public float AttackCooldown = 1.5f;
+    public float ProjectileOffset = 2f;
     
     public bool IsAttacking { get; private set; }
     private float _attackEndTime;
     private float _nextAttackTime;
     
+    private PlayerController _playerController;
     private float projectileRadius => projectileDiameter / 2f;
-    private float _offset = 2f;
-    
-    
+
+    public void Init(PlayerController playerController)
+    {
+        _playerController = playerController;
+    }
 
     public void TryAttack()
     {
@@ -27,7 +31,10 @@ public class AbilityAttack
         {
             IsAttacking = true;
             _attackEndTime = Time.time + AttackTime;
-            Debug.Log("atttaaack");
+           Transform playerTransform = _playerController.transform;
+           Vector3 currentInput = _playerController.CurrentMovementInput;
+           
+           SpawnProjectile(playerTransform, currentInput);
         }
     }
 
@@ -42,13 +49,23 @@ public class AbilityAttack
         }
     }
     
-    private GameObject Projectile(Transform transform)
+    private void SpawnProjectile(Transform transform, Vector3 currentInput)
     {
+        Vector3 shootDirection = currentInput;
+        if (shootDirection == Vector3.zero)
+        {
+            shootDirection = transform.forward;
+        }
+        
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.localScale = Vector3.one * projectileDiameter;
+        sphere.transform.position = transform.position + (shootDirection * ProjectileOffset);
+        sphere.transform.position = new Vector3(sphere.transform.position.x ,projectileRadius, sphere.transform.position.z);
+        
         Collider collider = sphere.GetComponent<Collider>();
         collider.isTrigger = true;
-        sphere.transform.position = new Vector3(transform.position.x ,projectileRadius, transform.position.z + _offset + projectileRadius);
-        return sphere;
+        
+        ProjectileMovement projectileMovement = sphere.AddComponent<ProjectileMovement>();
+        projectileMovement.Init(shootDirection, projectileSpeed, projectileDamage, AttackTime);
     }
 }

@@ -48,26 +48,14 @@ public class MaskManager : MonoBehaviour
         _playerInputController.OnExecuteMaskAbilityButtonPressed += ExecuteMaskAbilityButtonPressed;
     }
     
-    private void Start()
-    {
-        if (_playerUI != null)
-        {
-            Debug.Log("Start maskmask");
-            _playerUI.UpdateMask(_currentMask);
-        }
-    }
-    
     private void CycleMaskButtonPressed()
     {
         int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them
         int nextMaskIndex = ((int)_currentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
         _currentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
         Debug.Log("Current Mask: " + _currentMask);
-
-        if (_playerUI != null)
-        {
-            _playerUI.UpdateMask(_currentMask);
-        }
+        
+        //todo: ui info update
     }
     
     private void ExecuteMaskAbilityButtonPressed()
@@ -118,7 +106,7 @@ public class MaskManager : MonoBehaviour
     
     private IEnumerator Shield()
     {
-        _shieldTriggered = true;
+        _shieldTriggered = true;a
         _isInvincible = true;
         Debug.Log("nooooo damage for me");
         float startTime = Time.time;

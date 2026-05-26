@@ -60,9 +60,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if(_dashTriggered)return; // Dont rotate on dash
-        // if(_maskManager.DashTriggered) return; // no rotate on dash
-        
         //safe the Movement direction
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
         if (_currentMovementInput != Vector3.zero) // "null" exeption
@@ -76,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         _maskManager.UpdateAbilites(_rigidbody,_currentMovementInput,transform);
         if (_maskManager.IsDashing) return; //Dont touch my Rigidbody while Dashing couse you stink
+        if(AttackTriggered)return;
         _groundController.CheckGround();
         // Smooth PlayerRotation
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,  movement.rotationSpeed * Time.fixedDeltaTime));

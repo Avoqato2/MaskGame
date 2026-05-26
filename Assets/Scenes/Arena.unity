@@ -1065,6 +1065,12 @@ MonoBehaviour:
     DashCooldown: 1.5
     ShieldTime: 2
     ShieldCooldown: 3
+    _abilityAttack:
+      projectileSpeed: 1
+      projectileDamage: 10
+      projectileDiameter: 5
+      AttackTime: 3
+      AttackCooldown: 1.5
 --- !u!114 &1702144668
 MonoBehaviour:
   m_ObjectHideFlags: 0

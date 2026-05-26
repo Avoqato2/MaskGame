@@ -151,10 +151,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 413.31, y: 224}
-  m_SizeDelta: {x: 59.2719, y: 59.2719}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &27654689
 MonoBehaviour:
@@ -226,10 +226,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 296.96, y: 224}
-  m_SizeDelta: {x: 152.1887, y: 46.4584}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -217, y: -25}
+  m_SizeDelta: {x: 152.18872, y: 46.458405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144603508
 MonoBehaviour:
@@ -1278,10 +1278,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 408, y: -208}
-  m_SizeDelta: {x: 69.8967, y: 69.8967}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -50, y: 40}
+  m_SizeDelta: {x: 69.89673, y: 69.8967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178240053
 MonoBehaviour:
@@ -1539,7 +1539,7 @@ MonoBehaviour:
   movement:
     speed: 7
     jumpSpeed: 7
-    rotationSpeed: 5
+    rotationSpeed: 7
   _health:
     MaxHealth: 100
   _groundController:
@@ -1559,8 +1559,9 @@ MonoBehaviour:
       projectileSpeed: 10
       projectileDamage: 10
       projectileDiameter: 5
-      AttackTime: 3
+      AttackTime: 1
       AttackCooldown: 1.5
+      ProjectileOffset: 3
   _playerUI: {fileID: 452335686}
 --- !u!114 &1702144668
 MonoBehaviour:

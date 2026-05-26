@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     [Header("Rotation Settings")]
     [SerializeField] private float _rotationSpeed = 5f;
     
+    [Header("UI Settings")]
+    [SerializeField] private PlayerUI _playerUI;
+    
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
@@ -37,6 +40,11 @@ public class PlayerController : MonoBehaviour
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
         
         _currentHealth = _maxHealth;
+
+        if (_playerUI != null)
+        {
+            _playerUI.UpdateHealth(_currentHealth, _maxHealth);
+        }
     }
 
     private void Update()

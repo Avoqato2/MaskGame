@@ -24,6 +24,9 @@ public class MaskManager
     [Header ("Shield Settings")] 
     public float ShieldTime = 2f;
     public float ShieldCooldown = 3f;
+    
+    [Header("Attack Settings")]
+    [SerializeField]private AbilityAttack _abilityAttack;
     public bool IsDashing { get; private set; }
     private float _dashEndTime;
     private float _nextDashTime;
@@ -57,7 +60,7 @@ public class MaskManager
                 TryDash();
                 break;
             case MaskType.Attack:
-                PerformAttackPlaceholder();
+                _abilityAttack.TryAttack();
                 break;
             case MaskType.Shield:
                 TryShield();
@@ -83,16 +86,12 @@ public class MaskManager
         }
     }
 
-    private void PerformAttackPlaceholder() 
-    { 
-        Debug.Log("atttaaack"); 
-    }
-
     public void UpdateAbilites(Rigidbody rigidbody, Vector3 movementInput,
         Transform playerTransform)
     {
         UpdateDash(rigidbody, movementInput, playerTransform);
         UpdateShield();
+        _abilityAttack.UpdateAttack(playerTransform, movementInput);
     }
     private void UpdateDash(Rigidbody rigidbody, Vector3 movementInput,
         Transform playerTransform)

@@ -5,24 +5,38 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI _healthBar;
-    [SerializeField] private TextMeshProUGUI _maskDisplay;
+    [SerializeField] private TextMeshProUGUI healthBar;
+    [SerializeField] private Image maskImage;
     
-    //später wenn bilder für mask da sind
-    [SerializeField] private Sprite[] _maskSprites;
+    [SerializeField] private Sprite[] maskSprites;
     public void UpdateMask(MaskType activeMask)
     {
-        if(_maskDisplay != null)
+        if(maskImage == null) return;
+        if (activeMask == MaskType.None)
         {
-            _maskDisplay.text = activeMask.ToString();
+            maskImage.enabled = false;
+            return;
         }
+        maskImage.enabled = true;
+        
+        int maskIndex = (int)activeMask; // get the index of the active mask from the enum
+        if (maskIndex >= 0 && maskIndex < maskSprites.Length) // check
+        {
+            Debug.Log("Setting sprite: " + maskSprites[maskIndex]);
+            maskImage.sprite = maskSprites[maskIndex]; // set the sprite of the mask image to the corresponding sprite in the array
+        }
+        else
+        {
+            Debug.LogWarning("Invalid mask index: " + maskIndex);
+        }
+        
     }
     
     public void UpdateHealth(float currentHealth, float maxHealth)
     {
-        if (_healthBar != null)
+        if (healthBar != null)
         {
-            _healthBar.text = $"Health: {currentHealth}/{maxHealth}";
+            healthBar.text = $"Health: {currentHealth}/{maxHealth}";
         }
     }
 }

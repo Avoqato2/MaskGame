@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System;
 // Refactoring was vibecoded hehe
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]private PlayerAnimationController _playerAnimationController;//Load PlayerAnimationController Class
 
+    [Header("UI Settings")]
+    [SerializeField] private PlayerUI _playerUI;
+    
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
@@ -44,7 +48,12 @@ public class PlayerController : MonoBehaviour
         
         //Give Classes all Variables they need
         _groundController.Init(GetComponent<CapsuleCollider>(), transform);
-        _health.Init();
+        _maskManager.PlayerUI = _playerUI;
+        if (_maskManager.PlayerUI != null)
+        {
+            _maskManager.PlayerUI.UpdateMask(_maskManager.CurrentMask);
+        }
+        _health.Init(_playerUI);
         Animator modelAnimator = GetComponentInChildren<Animator>();
         _playerAnimationController.Init(modelAnimator,this,_playerInputController, _groundController);
     }
@@ -52,9 +61,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //safe the Movement direction
-        _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f,
-            _playerInputController.MovementInputVector.y).normalized;
-        if (_currentMovementInput != Vector3.zero) // "null" exception
+        _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
+        if (_currentMovementInput != Vector3.zero) // "null" exeption
         {
             _targetRotation = Quaternion.LookRotation(_currentMovementInput);
         }
@@ -65,16 +73,15 @@ public class PlayerController : MonoBehaviour
     {
         _maskManager.UpdateAbilites(_rigidbody,_currentMovementInput,transform);
         if (_maskManager.IsDashing) return; //Dont touch my Rigidbody while Dashing couse you stink
-        if (AttackTriggered) return; // stop Movement couse ur punching
+        if(AttackTriggered)return;
         _groundController.CheckGround();
         // Smooth PlayerRotation
-        _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,
-            movement.rotationSpeed * Time.fixedDeltaTime));
-
+        _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,  movement.rotationSpeed * Time.fixedDeltaTime));
+        
         Vector3 velocity = VelocityCalc(movement.speed);
-        if (_jumpTriggered)
+        if(_jumpTriggered)
         {
-            velocity.y = movement.jumpSpeed;
+            velocity.y = movement.speed;
             _jumpTriggered = false;
         }
 
@@ -84,12 +91,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 VelocityCalc(float speed)
     {
         //Calc of Player Velocity
-        Vector3 velocity = new Vector3(_playerInputController.MovementInputVector.x, 0,
-            _playerInputController.MovementInputVector.y) * speed;
+        Vector3 velocity = new Vector3(_playerInputController.MovementInputVector.x, 0, _playerInputController.MovementInputVector.y)* speed;
         velocity.y = _rigidbody.linearVelocity.y; // Set Player Y-Access to currentLocation
         return velocity;
     }
-
+    
     private void JumpButtonPressed()
     {
         if (_groundController.IsGrounded)

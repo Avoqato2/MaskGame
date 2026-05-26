@@ -38,8 +38,11 @@ public class MaskManager
         int nextMaskIndex = ((int)CurrentMask + 1) % amountOfMasks; // modolo weil so fängts wieder von vorne an, wenn du durch alle Masken durch bist
         CurrentMask = (MaskType)nextMaskIndex; // cast the index back to the MaskType enum, wollen ja keine int sondern ein MaskType
         Debug.Log("Current Mask: " + CurrentMask);
-        
-        //todo: ui info update
+
+        if (PlayerUI != null)
+        {
+            PlayerUI.UpdateMask(CurrentMask);
+        }
     }
     
     public void ExecuteMaskAbility()

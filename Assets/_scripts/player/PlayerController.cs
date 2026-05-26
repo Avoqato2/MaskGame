@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
     private Quaternion _targetRotation;
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
-    private GroundController _groundController;
-    private MaskManager _maskManager; // now a separate script
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     
@@ -40,8 +38,6 @@ public class PlayerController : MonoBehaviour
     {
         //Initiate the Components you need
         _playerInputController = GetComponent<PlayerInputController>();
-        _groundController = GetComponent<GroundController>();
-        _maskManager = GetComponent<MaskManager>();
         _rigidbody = GetComponent<Rigidbody>();
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
@@ -50,15 +46,14 @@ public class PlayerController : MonoBehaviour
         _playerInputController.OnCycleMaskButtonPressed += _maskManager.CycleMask; // Sent events directly to MaskManager
         _playerInputController.OnExecuteMaskAbilityButtonPressed += _maskManager.ExecuteMaskAbility;
         
-        _currentHealth = _maxHealth;
-
-        if (_playerUI != null)
-        {
-            _playerUI.UpdateHealth(_currentHealth, _maxHealth);
-        }
         //Give Classes all Variables they need
         _groundController.Init(GetComponent<CapsuleCollider>(), transform);
-        _health.Init();
+        _maskManager.PlayerUI = _playerUI;
+        if (_maskManager.PlayerUI != null)
+        {
+            _maskManager.PlayerUI.UpdateMask(_maskManager.CurrentMask);
+        }
+        _health.Init(_playerUI);
         Animator modelAnimator = GetComponentInChildren<Animator>();
         _playerAnimationController.Init(modelAnimator,this,_playerInputController, _groundController);
     }
@@ -66,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //if(_dashTriggered)return; // Dont rotate on dash
-        if(_maskManager.DashTriggered) return; // no rotate on dash
+        // if(_maskManager.DashTriggered) return; // no rotate on dash
         
         //safe the Movement direction
         _currentMovementInput = new Vector3(_playerInputController.MovementInputVector.x, 0f, _playerInputController.MovementInputVector.y).normalized;
@@ -79,15 +74,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if(_dashTriggered)return; //Dont touch my Rigidbody while Dashing couse you stink
-        if(_maskManager.DashTriggered) return;
+        _maskManager.UpdateAbilites(_rigidbody,_currentMovementInput,transform);
+        if (_maskManager.IsDashing) return; //Dont touch my Rigidbody while Dashing couse you stink
+        _groundController.CheckGround();
         // Smooth PlayerRotation
-        _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _rotationSpeed * Time.fixedDeltaTime));
+        _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,  movement.rotationSpeed * Time.fixedDeltaTime));
         
-        Vector3 velocity = VelocityCalc(_speed);
+        Vector3 velocity = VelocityCalc(movement.speed);
         if(_jumpTriggered)
         {
-            velocity.y = _jumpSpeed;
+            velocity.y = movement.speed;
             _jumpTriggered = false;
         }
 

@@ -95,6 +95,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "NextDialogue",
+                    "type": "Button",
+                    "id": "dd3e7f20-2d72-4675-8538-daf420fffd4d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -320,17 +329,6 @@
                 },
                 {
                     "name": "",
-                    "id": "716d51b8-809c-4564-a828-2521679ad22c",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f2f7e71c-74c7-478d-89d7-fc36468c5c22",
                     "path": "<Keyboard>/2",
                     "interactions": "",
@@ -469,6 +467,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "ExecuteMaskAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45e051a7-368c-4f4e-9a58-21857b4ad730",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c90acb8-d3d1-4d11-aa14-ec488189e88f",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cfd953f-1dcb-4c25-b57b-fb8d5ec88ccd",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

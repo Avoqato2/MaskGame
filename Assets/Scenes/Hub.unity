@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   textComponent: {fileID: 2025146036}
+  playerInputController: {fileID: 0}
   lines:
   - Hallo das ist ein langer Text
   - Das ist ja crazy wowowow
@@ -1010,6 +1011,7 @@ GameObject:
   - component: {fileID: 1083348665}
   - component: {fileID: 1083348664}
   - component: {fileID: 1083348663}
+  - component: {fileID: 1083348667}
   m_Layer: 0
   m_Name: MagischerCube
   m_TagString: Untagged
@@ -1032,11 +1034,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1083348664
 MeshRenderer:
@@ -1110,6 +1112,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1083348667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083348662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ff9acd8660943708e65fe6029a0860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueCanvas: {fileID: 1160545800}
+  dialogueScript: {fileID: 48532564}
 --- !u!1 &1160545800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1160545801
 MonoBehaviour:
   m_ObjectHideFlags: 0

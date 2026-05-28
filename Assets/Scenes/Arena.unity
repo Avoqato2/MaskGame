@@ -1539,7 +1539,7 @@ MonoBehaviour:
   movement:
     speed: 7
     jumpSpeed: 7
-    rotationSpeed: 5
+    rotationSpeed: 7
   _health:
     MaxHealth: 100
   _groundController:

@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _jumpTriggered;
     
-    public bool AttackTriggered {get; private set;} // maybe for future purposes public now it could be private
+    public bool MeleeTriggerd {get; private set;} // maybe for future purposes public now it could be private
 
     private int _jumpsLeft = 1;
 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         
         //Give Classes all Variables they need
         _groundController.Init(GetComponent<CapsuleCollider>(), transform);
+        _maskManager.Init(this);
         _maskManager.PlayerUI = _playerUI;
         if (_maskManager.PlayerUI != null)
         {
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         _maskManager.UpdateAbilites(_rigidbody,_currentMovementInput,transform);
         if (_maskManager.IsDashing) return; //Dont touch my Rigidbody while Dashing couse you stink
-        if(AttackTriggered)return;
+        if(MeleeTriggerd)return;
         _groundController.CheckGround();
         // Smooth PlayerRotation
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,  movement.rotationSpeed * Time.fixedDeltaTime));
@@ -126,12 +127,12 @@ public class PlayerController : MonoBehaviour
 
     private void AttackButtonPressed()
     {
-        AttackTriggered = true; // stoping movement couse ur punching
+        MeleeTriggerd = true; // stoping movement couse ur punching
     }
 
     public void EndAttack()
     {
-        AttackTriggered = false; // Setting movement free again
+        MeleeTriggerd = false; // Setting movement free again
     }
 }
 

@@ -17,24 +17,26 @@ public class MaskManager
     public PlayerUI PlayerUI;
 
     [Header("Dash Settings")]
-    public float DashSpeed = 20f;
-    public float DashTime = 0.25f;
-    public float DashCooldown = 1.5f;
+    [SerializeField] private AbilityDash _abilityDash;
     
     [Header ("Shield Settings")] 
-    public float ShieldTime = 2f;
-    public float ShieldCooldown = 3f;
+    [SerializeField] private AbilityShield _abilityShield;
     
     [Header("Attack Settings")]
     [SerializeField]private AbilityAttack _abilityAttack;
-    public bool IsDashing { get; private set; }
-    private float _dashEndTime;
-    private float _nextDashTime;
-
-    public bool IsInvincible { get; private set; }
-    private float _shieldEndTime;
-    private float _nextShieldTime;
     
+    public bool IsDashing => _abilityDash.IsDashing;
+    public bool IsAttacking => _abilityAttack.IsAttacking;
+    public bool IsInvincible => _abilityShield.IsInvincible;
+
+    private PlayerController _playerController;
+
+    public void Init(PlayerController playerController)
+    {
+        _abilityAttack.Init(playerController);
+        _abilityDash.Init(playerController);
+        _abilityShield.Init(playerController);
+    }
     public void CycleMask()
     {
         int amountOfMasks = System.Enum.GetValues(typeof(MaskType)).Length; // get the number of masks in the enum, so we can loop through them
@@ -57,72 +59,22 @@ public class MaskManager
                 Debug.Log("no mask equipped");
                 break;
             case MaskType.Dash:
-                TryDash();
+                _abilityDash.TryDash();
                 break;
             case MaskType.Attack:
                 _abilityAttack.TryAttack();
                 break;
             case MaskType.Shield:
-                TryShield();
+                _abilityShield.TryShield();
                 break;
         }
     }
-    private void TryDash()
-    {
-        if (!IsDashing && Time.time >= _nextDashTime)
-        {
-            IsDashing = true;
-            _dashEndTime = Time.time + DashTime;
-        }
-    }
-
-    private void TryShield()
-    {
-        if (!IsInvincible && Time.time >= _nextShieldTime)
-        {
-            IsInvincible = true;
-            _shieldEndTime = Time.time + ShieldTime;
-            Debug.Log("nooooo damage for me");
-        }
-    }
-
+    
     public void UpdateAbilites(Rigidbody rigidbody, Vector3 movementInput,
         Transform playerTransform)
     {
-        UpdateDash(rigidbody, movementInput, playerTransform);
-        UpdateShield();
+        _abilityDash.UpdateDash(rigidbody, movementInput, playerTransform);
+        _abilityShield.UpdateShield();
         _abilityAttack.UpdateAttack(playerTransform, movementInput);
-    }
-    private void UpdateDash(Rigidbody rigidbody, Vector3 movementInput,
-        Transform playerTransform)
-    {
-        if(!IsDashing)return;
-        if (Time.time >= _dashEndTime)
-        {
-            IsDashing = false;
-            _nextDashTime = Time.time + DashCooldown;
-            return;
-        }
-        
-        Vector3 dashDirection = movementInput;
-        if (dashDirection == Vector3.zero)
-        {
-            dashDirection = playerTransform.forward;
-        }
-        Vector3 dasVelocity = dashDirection * DashSpeed;
-        dasVelocity.y = rigidbody.linearVelocity.y;
-        rigidbody.linearVelocity = dasVelocity;
-    }
-    
-    private void UpdateShield()
-    {
-        if(!IsInvincible) return;
-        if (Time.time >= _shieldEndTime)
-        {
-            IsInvincible = false;
-            _nextShieldTime = Time.time + ShieldCooldown;
-            Debug.Log("Shield deactivated!");
-        }
-        // das gehört irgwie ausgelagert weil damage health stuff sollte hier ja nicht rein
     }
 }

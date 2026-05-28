@@ -151,10 +151,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 821.35, y: 560}
-  m_SizeDelta: {x: 59.2719, y: 59.2719}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -40, y: -40}
+  m_SizeDelta: {x: 59.27191, y: 59.271973}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &27654689
 MonoBehaviour:
@@ -226,10 +226,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 705, y: 560}
-  m_SizeDelta: {x: 152.1887, y: 46.4584}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -180, y: -40}
+  m_SizeDelta: {x: 152.18872, y: 46.458374}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144603508
 MonoBehaviour:
@@ -1278,10 +1278,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 452335685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 804.9544, y: -551.95447}
-  m_SizeDelta: {x: 111.9877, y: 111.9877}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -65, y: 65}
+  m_SizeDelta: {x: 111.98767, y: 111.9877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178240053
 MonoBehaviour:
@@ -1675,6 +1675,7 @@ MonoBehaviour:
       projectileDiameter: 5
       AttackTime: 3
       AttackCooldown: 1.5
+      ProjectileOffset: 2
   _playerUI: {fileID: 452335686}
 --- !u!114 &1702144668
 MonoBehaviour:

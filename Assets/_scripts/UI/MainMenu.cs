@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     public void StartClicked()
     {
-        SceneManager.LoadScene("Hub");
+        SceneManager.LoadScene("IntroStory");
     }
     
     public void QuitClicked()

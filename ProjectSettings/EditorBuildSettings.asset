@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arena.unity
     guid: 53e5a4c021e40d74e808b2b878690316
+  - enabled: 1
+    path: Assets/Scenes/IntroStory.unity
+    guid: 1bc35a6995e5b4525b20f1602ca9a30c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b3860a056cb09481197a1fd51fd0032c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

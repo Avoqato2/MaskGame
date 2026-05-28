@@ -10,6 +10,9 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnCycleMaskButtonPressed;
     public event Action OnExecuteMaskAbilityButtonPressed;
     public event Action OnAttackButtonPressed;
+    public event Action OnNextDialoguePressed;
+    
+    public bool IsDialogueActive { get; set; } //gemini sagt memory leaks können mit dem verhindert werden ka
 
     private void OnMove(InputValue inputValue)
     {
@@ -45,6 +48,14 @@ public class PlayerInputController : MonoBehaviour
         if(inputValue.isPressed)
         { 
             OnAttackButtonPressed?.Invoke();
+        }
+    }
+    
+    private void OnNextDialogue(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnNextDialoguePressed?.Invoke();
         }
     }
 }

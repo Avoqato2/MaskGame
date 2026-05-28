@@ -38,7 +38,6 @@ public class Dialogue : MonoBehaviour
         if(!isDialogueActive) return;
         if (textComponent.text == lines[index])
         {
-            Debug.Log("hallo halo");
             NextLine();
         }
         else

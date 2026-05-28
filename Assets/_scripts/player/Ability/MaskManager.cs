@@ -31,11 +31,11 @@ public class MaskManager
 
     private PlayerController _playerController;
 
-    public void Init(PlayerController playerController)
+    public void Init(PlayerController playerController, GameObject playerObject)
     {
         _abilityAttack.Init(playerController);
         _abilityDash.Init(playerController);
-        _abilityShield.Init(playerController);
+        _abilityShield.Init(playerObject);
     }
     public void CycleMask()
     {

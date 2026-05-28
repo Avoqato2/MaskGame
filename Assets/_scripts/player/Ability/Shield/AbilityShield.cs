@@ -10,11 +10,11 @@ public class AbilityShield
     private float _shieldEndTime;
     private float _nextShieldTime;
     
-    private PlayerController _playerController;
+    private GameObject _shield;
     
-    public void Init(PlayerController playerController)
+    public void Init(GameObject playerObject)
     {
-        _playerController = playerController;
+        _shield = playerObject.transform.Find("Shield").gameObject;
     }
     
     public void TryShield()
@@ -23,6 +23,7 @@ public class AbilityShield
         {
             IsInvincible = true;
             _shieldEndTime = Time.time + ShieldTime;
+            _shield.SetActive(IsInvincible);
             Debug.Log("nooooo damage for me");
         }
     }
@@ -33,8 +34,8 @@ public class AbilityShield
         {
             IsInvincible = false;
             _nextShieldTime = Time.time + ShieldCooldown;
+            _shield.SetActive(IsInvincible);
             Debug.Log("Shield deactivated!");
         }
-        // das gehört irgwie ausgelagert weil damage health stuff sollte hier ja nicht rein
     }
 }

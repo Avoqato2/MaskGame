@@ -7,6 +7,7 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private Dialogue dialogueScript;
     private void OnTriggerEnter(Collider other)
     {
+        // irgwo noch disablen dass player weiter gehen kann oder wir lassen das so und bewegen uns bei der präsi eif nd
         if (other.CompareTag("Player"))
         {
             if (dialogueCanvas != null)

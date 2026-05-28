@@ -23,10 +23,7 @@ public class Dialogue : MonoBehaviour
         index = 0;
         textComponent.text = string.Empty;
         
-        if (playerInputController != null)
-        {
-            playerInputController.OnNextDialoguePressed += NextDialoguePressed;
-        }
+        playerInputController.OnNextDialoguePressed += NextDialoguePressed;
         
         if (typingCoroutine != null)
         {
@@ -37,6 +34,7 @@ public class Dialogue : MonoBehaviour
 
     void NextDialoguePressed()
     {
+        Debug.Log("NextDialoguePressed");
         if(!isDialogueActive) return;
         if (textComponent.text == lines[index])
         {
@@ -45,10 +43,7 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            if(typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
+            StopCoroutine(typingCoroutine);
             textComponent.text = lines[index];
         }
     }
@@ -71,10 +66,7 @@ public class Dialogue : MonoBehaviour
         {
             index++;
             textComponent.text = string.Empty;
-            if(typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
+            StopCoroutine(typingCoroutine);
             typingCoroutine = StartCoroutine(TypeLine());
         }
         else
@@ -92,9 +84,6 @@ public class Dialogue : MonoBehaviour
     private void OnDestroy()
     {
         // Sicherheits-Cleanup für den RAM
-        if (playerInputController != null)
-        {
-            playerInputController.OnNextDialoguePressed -= NextDialoguePressed;
-        }
+        playerInputController.OnNextDialoguePressed -= NextDialoguePressed;
     }
 }

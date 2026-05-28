@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         
         //Give Classes all Variables they need
         _groundController.Init(GetComponent<CapsuleCollider>(), transform);
-        _maskManager.Init(this);
+        _maskManager.Init(this, GameObject.Find("Player")); 
         _maskManager.PlayerUI = _playerUI;
         if (_maskManager.PlayerUI != null)
         {

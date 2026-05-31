@@ -131,7 +131,10 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage) // public function for Telling the player they got hit
     {
-        _health.TakeDamage(damage, _playerUI); 
+        if (!_maskManager.IsInvincible)
+        {
+            _health.TakeDamage(damage, _playerUI); 
+        }
     }
 
     private void AttackButtonPressed()

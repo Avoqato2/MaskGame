@@ -1406,12 +1406,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _moveSpeed: 3
   _turnSpeed: 7
-  _enemysensor: {fileID: 1953831656}
+  _aggroRange: 8
+  _aggroCheckInterval: 0.5
   _enemyHealth:
     MaxHealth: 100
     DamageCooldown: 1
-  _aggroRange: 8
-  _aggroCheckInterval: 0.5
+  _enemyAttack:
+    Damage: 10
+    DamageCooldown: 1.5
 --- !u!136 &1673338810
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1465,7 +1467,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1673338808}
@@ -1611,7 +1613,7 @@ MonoBehaviour:
       m_Bits: 8
   _maskManager:
     CurrentMask: 0
-    PlayerUI: {fileID: 0}
+    PlayerUI: {fileID: 452335686}
     _abilityDash:
       DashSpeed: 20
       DashTime: 0.25

@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
         //Initiate the Components you need
         _playerInputController = GetComponent<PlayerInputController>();
         _rigidbody = GetComponent<Rigidbody>();
-        _armGamObject = GameObject.FindWithTag("PlayerArm");
+        _armGamObject = GameObject.FindWithTag("Damage");
+        _armGamObject.SetActive(false);
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;

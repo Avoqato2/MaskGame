@@ -6,12 +6,12 @@ public class EnemyController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _turnSpeed;
-    [SerializeField] PlayerController _playerController;
     [SerializeField] Enemysensor _enemysensor;
     
     [Header("Enemy Health Settings")]
     [SerializeField] private EnemyHealth _enemyHealth;
     
+    private PlayerController _playerController;
     private Rigidbody _rigidbody;
     private Vector3 _targetDirection;
     private Quaternion _targetRotation;
@@ -20,13 +20,20 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _enemyHealth.Init(GameObject.Find("Enemy"));
+        _enemyHealth.Init(gameObject);
         _targetRotation = _rigidbody.rotation;
+        
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            _playerController = playerObj.GetComponent<PlayerController>();
+        }
         
     }
 
     private void Update()
     {
+        if (_playerController == null) return;
         GetTargetDirection();
         if (_targetDirection != Vector3.zero) // "null" exeption
         {
@@ -56,22 +63,28 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            _rigidbody.linearVelocity = Vector3.zero;
+            _rigidbody.linearVelocity = new Vector3(0, _rigidbody.linearVelocity.y , 0);
         }
     }
     
     private Vector3 VelocityCalc(float speed)
     {
         Vector3 velocity = _targetDirection * speed;
+        velocity.y = _rigidbody.linearVelocity.y;
         return velocity;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerArm")
+        if (other.CompareTag("PlayerArm"))
         {
-            _enemyHealth.TakeDamage();
-        } 
+            DamageDealer dealer = other.GetComponent<DamageDealer>();
+        
+            if (dealer != null)
+            {
+                _enemyHealth.TakeDamage(dealer.Damage); 
+            }
+        }
     }
     
 }

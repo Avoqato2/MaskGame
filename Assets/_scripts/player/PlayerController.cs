@@ -25,13 +25,15 @@ public class PlayerController : MonoBehaviour
     private Vector3 _currentMovementInput;
     private PlayerInputController _playerInputController;
     private Rigidbody _rigidbody;
+    private GameObject _armGamObject;
+    
     private bool _jumpTriggered;
+    private int _jumpsLeft = 1;
     
     public bool MeleeTriggerd {get; private set;} // maybe for future purposes public now it could be private
-
-    private int _jumpsLeft = 1;
-
     public Vector3 CurrentMovementInput => _currentMovementInput; // so other scripts can access it (maskmanager)
+
+
     public event Action OnJumpPerformed; // For animatorController
 
     private void Awake()
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
         //Initiate the Components you need
         _playerInputController = GetComponent<PlayerInputController>();
         _rigidbody = GetComponent<Rigidbody>();
+        _armGamObject = GameObject.FindWithTag("PlayerArm");
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
@@ -128,11 +131,13 @@ public class PlayerController : MonoBehaviour
     private void AttackButtonPressed()
     {
         MeleeTriggerd = true; // stoping movement couse ur punching
+        _armGamObject.SetActive(true);
     }
 
     public void EndAttack()
     {
         MeleeTriggerd = false; // Setting movement free again
+        _armGamObject.SetActive(false);
     }
 }
 

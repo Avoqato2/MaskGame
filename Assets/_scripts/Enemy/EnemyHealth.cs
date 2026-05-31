@@ -8,7 +8,6 @@ public class EnemyHealth
     
     [Header("Hit Settings")]
     public float DamageCooldown = 0.5f;
-    public float DamageAmount = 10f;
     
     private float _currentHealth;
     private float _nextPossibleHitTime;
@@ -21,14 +20,14 @@ public class EnemyHealth
         _nextPossibleHitTime = 0f;
     }
 
-    public void TakeDamage() 
+    public void TakeDamage(float damageAmount) 
     {
         if (Time.time < _nextPossibleHitTime) 
         {
             return;
         }
         
-        _currentHealth -= DamageAmount;
+        _currentHealth -= damageAmount;
         Debug.Log("Gegner hat Schaden bekommen! Rest: " + _currentHealth);
         _nextPossibleHitTime = Time.time + DamageCooldown;
 

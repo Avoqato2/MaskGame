@@ -16,6 +16,6 @@ public class LevelManager : MonoBehaviour
 
     private void HandleLevelTransition(string sceneName)
     {
-        SceneManager.LoadScene(sceneName); 
+        SceneManager.LoadScene(sceneName); // Load Scene
     }
 }

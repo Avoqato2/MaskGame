@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+
+// Enemys take damage an has invincible frames DamageCooldown = frames how long the enemy cant have damage
 [Serializable]
 public class EnemyHealth
 {

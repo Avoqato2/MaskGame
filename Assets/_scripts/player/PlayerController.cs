@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
         //Initiate the Components you need
         _playerInputController = GetComponent<PlayerInputController>();
         _rigidbody = GetComponent<Rigidbody>();
-        _armGamObject = GameObject.FindWithTag("Damage");
-        _armGamObject.SetActive(false);
+        _armGamObject = GameObject.FindWithTag("Damage"); // Search for the ArmGameObject With the Tag Damage
+        _armGamObject.SetActive(false); // Set it to false so that the arm dose no damage on walking past it
         _targetRotation = _rigidbody.rotation;
         //Subscribe the Input events you need
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;
@@ -129,10 +129,15 @@ public class PlayerController : MonoBehaviour
         _playerAnimationController.Cleanup();
     }
 
+    public void TakeDamage(float damage) // public function for Telling the player they got hit
+    {
+        _health.TakeDamage(damage, _playerUI); 
+    }
+
     private void AttackButtonPressed()
     {
         MeleeTriggerd = true; // stoping movement couse ur punching
-        _armGamObject.SetActive(true);
+        _armGamObject.SetActive(true); // Set Arm to Ture for dealing damage
     }
 
     public void EndAttack()

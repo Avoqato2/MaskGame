@@ -6,21 +6,26 @@ public class EnemyController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _turnSpeed;
-    [SerializeField] Enemysensor _enemysensor;
     
     private Vector3 _targetDirection;
     private Quaternion _targetRotation;
     
-    [Header("Enemy Health Settings")]
-    [SerializeField] private EnemyHealth _enemyHealth;
-    
+    // thies setting are for moving the enemy when the player are in range
+    // and check every 0.5s
     [Header("Aggro Settings")]
     [SerializeField] private float _aggroRange = 15f;
     [SerializeField] private float _aggroCheckInterval = 0.5f; 
 
     private bool _hasAggro; 
     private float _nextAggroCheckTime;
+
+    [Header("Enemy Health Settings")]
+    [SerializeField] private EnemyHealth _enemyHealth;
     
+    [Header("Enemy Attack Settings")] 
+    [SerializeField] private EnemyDamage _enemyAttack;
+    
+    private Enemysensor _enemysensor;
     private PlayerController _playerController;
     private Rigidbody _rigidbody;
     
@@ -32,8 +37,10 @@ public class EnemyController : MonoBehaviour
         _targetRotation = _rigidbody.rotation;
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
+        GameObject enmysenserObj = GameObject.Find("EnemySensor");
+        if (playerObj != null || enmysenserObj != null)
         {
+            _enemysensor = enmysenserObj.GetComponent<Enemysensor>();
             _playerController = playerObj.GetComponent<PlayerController>();
         }
         
@@ -41,8 +48,6 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (_playerController == null) return;
-        
         if (Time.time >= _nextAggroCheckTime)
         {
             CheckAggroRange();
@@ -57,14 +62,18 @@ public class EnemyController : MonoBehaviour
         }
         
     }
-    
-    private void CheckAggroRange()
+    /// <summary>
+    /// Check if Player is in Range
+    /// </summary>
+    private void CheckAggroRange() 
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _playerController.transform.position);
         _hasAggro = distanceToPlayer <= _aggroRange;
         _nextAggroCheckTime = Time.time + _aggroCheckInterval;
     }
-
+    /// <summary>
+    /// Get direction to Player
+    /// </summary>
     private void GetTargetDirection()
     {
          Vector3 _playerPosition = _playerController.transform.position;
@@ -76,9 +85,10 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // smooth rotation as in PlayerController
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,
                 _turnSpeed * Time.fixedDeltaTime));
-        if (_hasAggro && !_enemysensor.IsInrange)
+        if (_hasAggro && !_enemysensor.IsInrange) // only move when the player is in range
         {
             Vector3 velocity = VelocityCalc(_moveSpeed);
             _rigidbody.linearVelocity = velocity;
@@ -88,14 +98,16 @@ public class EnemyController : MonoBehaviour
             _rigidbody.linearVelocity = new Vector3(0, _rigidbody.linearVelocity.y, 0); 
         }
     }
-    
+    /// <summary>
+    /// Calc the Viloity of the Player
+    /// </summary>
     private Vector3 VelocityCalc(float speed)
     {
         Vector3 velocity = _targetDirection * speed;
         velocity.y = _rigidbody.linearVelocity.y;
         return velocity;
     }
-
+    // if an body with the tag "Damage" or "Player" do shit
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Damage"))
@@ -107,6 +119,24 @@ public class EnemyController : MonoBehaviour
                 _enemyHealth.TakeDamage(dealer.Damage); 
             }
         }
+
+        if (other.CompareTag("Player"))
+        {
+            if (_enemyAttack.CanDealDamage())
+            {
+                _playerController.TakeDamage(_enemyAttack.Damage);
+            }
+        }
     }
-    
+    // also if the Player stays in enemy try hitting them
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (_enemyAttack.CanDealDamage())
+            {
+                _playerController.TakeDamage(_enemyAttack.Damage);
+            }
+        }
+    }
 }

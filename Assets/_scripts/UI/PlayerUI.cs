@@ -22,7 +22,6 @@ public class PlayerUI : MonoBehaviour
         int maskIndex = (int)activeMask; // get the index of the active mask from the enum
         if (maskIndex >= 0 && maskIndex < maskSprites.Length) // check
         {
-            Debug.Log("Setting sprite: " + maskSprites[maskIndex]);
             maskImage.sprite = maskSprites[maskIndex]; // set the sprite of the mask image to the corresponding sprite in the array
         }
         else

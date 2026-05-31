@@ -19,9 +19,4 @@ public class ProjectileMovement : MonoBehaviour
     {
         transform.position += _flightDirection * _speed * Time.deltaTime;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.gameObject.tag);
-    }
 }

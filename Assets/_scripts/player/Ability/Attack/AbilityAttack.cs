@@ -61,6 +61,8 @@ public class AbilityAttack
         sphere.transform.localScale = Vector3.one * projectileDiameter;
         sphere.transform.position = transform.position + (shootDirection * ProjectileOffset);
         sphere.transform.position = new Vector3(sphere.transform.position.x ,projectileRadius, sphere.transform.position.z);
+        sphere.tag = "Damage";
+        sphere.AddComponent<DamageDealer>();
         
         Collider collider = sphere.GetComponent<Collider>();
         collider.isTrigger = true;

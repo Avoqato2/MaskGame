@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Shield
-  - PlayerArm
+  - Damage
   layers:
   - Default
   - TransparentFX

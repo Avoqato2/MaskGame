@@ -8,13 +8,21 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _turnSpeed;
     [SerializeField] Enemysensor _enemysensor;
     
+    private Vector3 _targetDirection;
+    private Quaternion _targetRotation;
+    
     [Header("Enemy Health Settings")]
     [SerializeField] private EnemyHealth _enemyHealth;
     
+    [Header("Aggro Settings")]
+    [SerializeField] private float _aggroRange = 15f;
+    [SerializeField] private float _aggroCheckInterval = 0.5f; 
+
+    private bool _hasAggro; 
+    private float _nextAggroCheckTime;
+    
     private PlayerController _playerController;
     private Rigidbody _rigidbody;
-    private Vector3 _targetDirection;
-    private Quaternion _targetRotation;
     
     
     private void Awake()
@@ -34,12 +42,27 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         if (_playerController == null) return;
-        GetTargetDirection();
-        if (_targetDirection != Vector3.zero) // "null" exeption
+        
+        if (Time.time >= _nextAggroCheckTime)
         {
-            _targetRotation = Quaternion.LookRotation(_targetDirection);
+            CheckAggroRange();
+        }
+        if (_hasAggro)
+        {
+            GetTargetDirection();
+            if (_targetDirection != Vector3.zero) 
+            {
+                _targetRotation = Quaternion.LookRotation(_targetDirection);
+            }
         }
         
+    }
+    
+    private void CheckAggroRange()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerController.transform.position);
+        _hasAggro = distanceToPlayer <= _aggroRange;
+        _nextAggroCheckTime = Time.time + _aggroCheckInterval;
     }
 
     private void GetTargetDirection()
@@ -55,15 +78,14 @@ public class EnemyController : MonoBehaviour
     {
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation,
                 _turnSpeed * Time.fixedDeltaTime));
-        if (!_enemysensor.IsInrange)
+        if (_hasAggro && !_enemysensor.IsInrange)
         {
             Vector3 velocity = VelocityCalc(_moveSpeed);
             _rigidbody.linearVelocity = velocity;
-
         }
         else
         {
-            _rigidbody.linearVelocity = new Vector3(0, _rigidbody.linearVelocity.y , 0);
+            _rigidbody.linearVelocity = new Vector3(0, _rigidbody.linearVelocity.y, 0); 
         }
     }
     
@@ -76,7 +98,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerArm"))
+        if (other.CompareTag("Damage"))
         {
             DamageDealer dealer = other.GetComponent<DamageDealer>();
         

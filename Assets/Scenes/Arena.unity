@@ -1410,7 +1410,10 @@ MonoBehaviour:
   _aggroCheckInterval: 0.5
   _enemyHealth:
     MaxHealth: 100
-    DamageCooldown: 1
+    ApplyDamageCooldown: 0.5
+    EssencePrefab: {fileID: 2697184564163646986, guid: fea8fdba76ad347b2a1aae93a273dcc3, type: 3}
+    MinLoot: 3
+    MaxLoot: 6
   _enemyAttack:
     Damage: 10
     DamageCooldown: 1.5

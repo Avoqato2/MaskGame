@@ -24,7 +24,6 @@ public class AbilityShield
             IsInvincible = true;
             _shieldEndTime = Time.time + ShieldTime;
             _shield.SetActive(IsInvincible);
-            Debug.Log("nooooo damage for me");
         }
     }
     public void UpdateShield()
@@ -35,7 +34,6 @@ public class AbilityShield
             IsInvincible = false;
             _nextShieldTime = Time.time + ShieldCooldown;
             _shield.SetActive(IsInvincible);
-            Debug.Log("Shield deactivated!");
         }
     }
 }

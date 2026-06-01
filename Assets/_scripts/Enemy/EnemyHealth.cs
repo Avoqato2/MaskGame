@@ -7,9 +7,12 @@ using System;
 public class EnemyHealth
 {
     public float MaxHealth = 100f;
+    public float ApplyDamageCooldown = 0.5f;
     
-    [Header("Hit Settings")]
-    public float DamageCooldown = 0.5f;
+    [Header("Loot Settings")]
+    public GameObject EssencePrefab; // Hier ziehst du dein neues Prefab rein!
+    public int MinLoot = 3;
+    public int MaxLoot = 6;
     
     private float _currentHealth;
     private float _nextPossibleHitTime;
@@ -31,7 +34,7 @@ public class EnemyHealth
         
         _currentHealth -= damageAmount;
         Debug.Log("Gegner hat Schaden bekommen! Rest: " + _currentHealth);
-        _nextPossibleHitTime = Time.time + DamageCooldown;
+        _nextPossibleHitTime = Time.time + ApplyDamageCooldown;
 
         if (_currentHealth <= 0)
         {
@@ -42,6 +45,12 @@ public class EnemyHealth
     private void Die()
     {
         Debug.Log("Enemy ist tot!");
+        int lootAmount = UnityEngine.Random.Range(MinLoot, MaxLoot + 1); 
+        for (int i = 0; i < lootAmount; i++)
+        {
+            Vector3 spawnPosition = _enemyObject.transform.position + Vector3.up;
+            GameObject.Instantiate(EssencePrefab, spawnPosition, Quaternion.identity);
+        }
         GameObject.Destroy(_enemyObject);
     }
 }

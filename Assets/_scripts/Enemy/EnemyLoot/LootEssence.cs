@@ -7,6 +7,7 @@ public class LootEssence : MonoBehaviour
     [SerializeField] private float _sideForce = 3f;
     
     private Rigidbody _rb;
+    public Rigidbody Rigidbody{ get { return _rb; } }
 
     private void Awake()
     {
@@ -14,6 +15,10 @@ public class LootEssence : MonoBehaviour
         JumpOut();
     }
 
+    public void PickedUp()
+    {
+        gameObject.SetActive(false);
+    }
     private void JumpOut()
     {
         float randomX = Random.Range(-_sideForce, _sideForce);
@@ -25,13 +30,6 @@ public class LootEssence : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Essenz eingesammelt!");
-            
-            Destroy(gameObject);
-        }
-
         if (other.gameObject.layer != LayerMask.NameToLayer("Ground")) return;
         _rb.useGravity = false;
         _rb.linearVelocity = Vector3.zero;

@@ -44,7 +44,6 @@ public class EnemyHealth
 
     private void Die()
     {
-        Debug.Log("Enemy ist tot!");
         int lootAmount = UnityEngine.Random.Range(MinLoot, MaxLoot + 1); 
         for (int i = 0; i < lootAmount; i++)
         {

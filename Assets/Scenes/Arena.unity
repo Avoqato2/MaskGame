@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _moveSpeed: 3
   _turnSpeed: 7
-  _aggroRange: 8
+  _aggroRange: 15
   _aggroCheckInterval: 0.5
   _enemyHealth:
     MaxHealth: 100
@@ -1606,7 +1606,7 @@ MonoBehaviour:
   movement:
     speed: 7
     jumpSpeed: 7
-    rotationSpeed: 10
+    rotationSpeed: 5
   _health:
     MaxHealth: 100
   _groundController:

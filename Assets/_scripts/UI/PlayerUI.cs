@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +8,26 @@ public class PlayerUI : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI healthBar;
+    [SerializeField] private TextMeshProUGUI ScoreLable;
     [SerializeField] private Image maskImage;
     
     [SerializeField] private Sprite[] maskSprites;
+    
+    private StringBuilder strb = new StringBuilder();
+
+    private void Start()
+    {
+        PlayerController.ScoreChanged += PlayerScoreChanged;
+    }
+    
+    private void PlayerScoreChanged(int score)
+    {
+        strb.Clear();
+        strb.Append("Essence: ");
+        strb.Append(score);
+        ScoreLable.text = strb.ToString();
+    }
+
     public void UpdateMask(MaskType activeMask)
     {
         if(maskImage == null) return;

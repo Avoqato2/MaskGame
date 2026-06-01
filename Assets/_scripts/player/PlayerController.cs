@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour
 {
     public event Action OnJumpPerformed; // For animatorController
-    public static event Action ScoreChanged;
+    public static event Action<int> ScoreChanged;
     [Header("Movement Settings")] 
     [SerializeField] private MovementSettings movement;
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         private set
         {
             score = value;
-            ScoreChanged?.Invoke();
+            ScoreChanged?.Invoke(score);
         }
     }
     private void Awake()
@@ -177,6 +177,8 @@ public class PlayerController : MonoBehaviour
             _playerInputController.OnExecuteMaskAbilityButtonPressed -= _maskManager.ExecuteMaskAbility;
             _pullSensor.LootEntered -= PullSensor_LootEntered;
             _pullSensor.LootExited -= PullSensor_LootExited;
+            _pickupSensor.LootEntered -= PickupSensor_LootEntered;
+            _pickupSensor.LootExited -= PickupSensor_LootExited;
         }
         _playerAnimationController.Cleanup();
     }

@@ -18,7 +18,7 @@ public class PullSensor : MonoBehaviour
         LootEssence pickup = other.GetComponent<LootEssence>();
         if (null != pickup)
         {
-            LootEntered?.Invoke(pickup);
+            LootExited?.Invoke(pickup);
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LootEssence : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class LootEssence : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
         JumpOut();
     }
 

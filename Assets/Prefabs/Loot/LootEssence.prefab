@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2208856340582648080}
   - component: {fileID: 4641594466222970677}
   - component: {fileID: 277035927845136151}
-  - component: {fileID: 8632930971889331977}
+  - component: {fileID: -3626263166412080851}
   - component: {fileID: 1126438200413365551}
   m_Layer: 0
   m_Name: LootEssence
@@ -142,7 +142,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &8632930971889331977
+--- !u!135 &-3626263166412080851
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

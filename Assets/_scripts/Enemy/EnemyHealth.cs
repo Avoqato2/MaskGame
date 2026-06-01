@@ -10,19 +10,21 @@ public class EnemyHealth
     public float ApplyDamageCooldown = 0.5f;
     
     [Header("Loot Settings")]
-    public GameObject EssencePrefab; // Hier ziehst du dein neues Prefab rein!
     public int MinLoot = 3;
     public int MaxLoot = 6;
     
+    private ObjektPool<LootEssence> _sharedLootPool;
     private float _currentHealth;
     private float _nextPossibleHitTime;
     private GameObject _enemyObject;
 
-    public void Init(GameObject enemyObject)
+    public void Init(GameObject enemyObject, ObjektPool<LootEssence> sharedLootPool)
     {
         _enemyObject = enemyObject;
         _currentHealth = MaxHealth;
         _nextPossibleHitTime = 0f;
+
+        _sharedLootPool = sharedLootPool;
     }
 
     public void TakeDamage(float damageAmount) 
@@ -48,7 +50,9 @@ public class EnemyHealth
         for (int i = 0; i < lootAmount; i++)
         {
             Vector3 spawnPosition = _enemyObject.transform.position + Vector3.up;
-            GameObject.Instantiate(EssencePrefab, spawnPosition, Quaternion.identity);
+
+            LootEssence loot = _sharedLootPool.GetPoolObjekt();
+            loot.transform.position = spawnPosition;
         }
         GameObject.Destroy(_enemyObject);
     }

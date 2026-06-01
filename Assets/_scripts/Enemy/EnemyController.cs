@@ -25,15 +25,23 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy Attack Settings")] 
     [SerializeField] private EnemyDamage _enemyAttack;
     
+    [SerializeField] private LootEssence EssencePrefab; // Hier ziehst du dein neues Prefab rein!
+    [SerializeField] private Rigidbody _rigidbodyPrefab; // Hier ziehst du dein neues Rigidbody Prefab rein!
+    
     private Enemysensor _enemysensor;
     private PlayerController _playerController;
     private Rigidbody _rigidbody;
     
+    private static ObjektPool<LootEssence> _lootPool;
     
     private void Awake()
     {
+        if (_lootPool == null)
+        {
+            _lootPool = new ObjektPool<LootEssence>(EssencePrefab, _rigidbodyPrefab);
+        }
         _rigidbody = GetComponent<Rigidbody>();
-        _enemyHealth.Init(gameObject);
+        _enemyHealth.Init(gameObject, _lootPool);
         _targetRotation = _rigidbody.rotation;
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -107,7 +115,7 @@ public class EnemyController : MonoBehaviour
         velocity.y = _rigidbody.linearVelocity.y;
         return velocity;
     }
-    // if an body with the tag "Damage" or "Player" do shit
+    // if a body with the tag "Damage" or "Player" do shit
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Damage"))

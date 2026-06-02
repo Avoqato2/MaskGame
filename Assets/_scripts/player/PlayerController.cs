@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerUI _playerUI;
 
     [SerializeField]private PlayerAnimationController _playerAnimationController;//Load PlayerAnimationController Class
-    
+    [Header("Sensor Settings")]
     [SerializeField] private float Pullforce = 10f;
     
     [SerializeField]private PullSensor _pullSensor;

@@ -1900,12 +1900,11 @@ MonoBehaviour:
       ShieldTime: 2
       ShieldCooldown: 3
     _abilityAttack:
+      projectile: {fileID: 2588437476572397232, guid: df8fc10dc6de246149d902ea10a4138f, type: 3}
       projectileSpeed: 10
-      projectileDamage: 10
-      projectileDiameter: 5
-      AttackTime: 3
+      AttackTime: 2
       AttackCooldown: 1.5
-      ProjectileOffset: 2
+      ProjectileOffset: 3
   _playerUI: {fileID: 452335686}
   Pullforce: 5
   _pullSensor: {fileID: 376921058}

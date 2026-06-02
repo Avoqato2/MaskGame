@@ -1,14 +1,14 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
+using UnityEditor;
 
 [Serializable]
 public class AbilityAttack 
 {
     
-    
+    [SerializeField]public GameObject projectile;
     public float projectileSpeed = 10f;
-    public float projectileDamage = 10f;
-    public float projectileDiameter = 5f;
     public float AttackTime = 3f;
     public float AttackCooldown = 1.5f;
     public float ProjectileOffset = 2f;
@@ -18,7 +18,6 @@ public class AbilityAttack
     private float _nextAttackTime;
     
     private PlayerController _playerController;
-    private float projectileRadius => projectileDiameter / 2f;
 
     public void Init(PlayerController playerController)
     {
@@ -56,18 +55,10 @@ public class AbilityAttack
         {
             shootDirection = transform.forward;
         }
-        
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.localScale = Vector3.one * projectileDiameter;
-        sphere.transform.position = transform.position + (shootDirection * ProjectileOffset);
-        sphere.transform.position = new Vector3(sphere.transform.position.x ,projectileRadius, sphere.transform.position.z);
-        sphere.tag = "Damage";
-        sphere.AddComponent<DamageDealer>();
-        
-        Collider collider = sphere.GetComponent<Collider>();
-        collider.isTrigger = true;
-        
-        ProjectileMovement projectileMovement = sphere.AddComponent<ProjectileMovement>();
-        projectileMovement.Init(shootDirection, projectileSpeed, projectileDamage, AttackTime);
+        GameObject SpawnedProjectile = GameObject.Instantiate(projectile, transform.position + shootDirection.normalized * ProjectileOffset, Quaternion.identity);
+        SpawnedProjectile.transform.position = transform.position + (shootDirection * ProjectileOffset);
+        SpawnedProjectile.transform.position = new Vector3(SpawnedProjectile.transform.position.x ,SpawnedProjectile.transform.localScale.y /2, SpawnedProjectile.transform.position.z);;
+        Projectile projectileMovement = SpawnedProjectile.GetComponent<Projectile>();
+        projectileMovement.Init(shootDirection, projectileSpeed, AttackTime);
     }
 }

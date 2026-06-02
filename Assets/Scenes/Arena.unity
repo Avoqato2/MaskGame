@@ -1906,7 +1906,7 @@ MonoBehaviour:
       AttackCooldown: 1.5
       ProjectileOffset: 3
   _playerUI: {fileID: 452335686}
-  Pullforce: 5
+  Pullforce: 10
   _pullSensor: {fileID: 376921058}
   _pickupSensor: {fileID: 502552337}
 --- !u!1 &3065369315781161702

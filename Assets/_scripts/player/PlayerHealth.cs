@@ -4,6 +4,7 @@ using System;
 [Serializable]
 public class PlayerHealth //First draft of Health system
 {
+    public static event Action PlayerDead;
     public float MaxHealth = 100f;
     private float _currentHealth;
     public void Init(PlayerUI playerUI)
@@ -31,6 +32,6 @@ public class PlayerHealth //First draft of Health system
     private void Die()
     {
         Debug.Log("Player ist gestorben!");
-        // Hier Gameover logik bzw event.
+        PlayerDead?.Invoke();
     }
 }

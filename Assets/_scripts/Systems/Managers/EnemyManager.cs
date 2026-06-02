@@ -54,4 +54,9 @@ public class EnemyManager : MonoBehaviour
         GameObject enemy = Instantiate(_enemyPrefab, position, Quaternion.identity, _parentContainer);
         return enemy;
     }
+
+    private void OnDestroy()
+    {
+        EnemyController.OnEnemyDead -= CountDeadEnemies;
+    }
 }

@@ -18,6 +18,7 @@ public class ObjektPool<T> where T : MonoBehaviour
 
     public T GetPoolObjekt(Vector3 position, Quaternion rotation)
     {
+        pooledObjects.RemoveAll(item => item == null);
         foreach(T poolObject in pooledObjects)
         {
             if(!poolObject.gameObject.activeInHierarchy)

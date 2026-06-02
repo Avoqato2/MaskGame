@@ -1,12 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+
 // Refactoring was vibecoded hehe
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnJumpPerformed; // For animatorController
+    public static event Action<int> ScoreChanged;
     [Header("Movement Settings")] 
     [SerializeField] private MovementSettings movement;
 
+    private bool _jumpTriggered;
+    private int _jumpsLeft = 1;
+    
     [Header("Health Settings")] 
     [SerializeField] private PlayerHealth _health; //Load PlayerHealth Class
     
@@ -16,26 +23,36 @@ public class PlayerController : MonoBehaviour
     [Header("Abilities")]
     [SerializeField] private MaskManager _maskManager;//Load MaskManager Class
     
-    [SerializeField]private PlayerAnimationController _playerAnimationController;//Load PlayerAnimationController Class
-
     [Header("UI Settings")]
     [SerializeField] private PlayerUI _playerUI;
+
+    [SerializeField]private PlayerAnimationController _playerAnimationController;//Load PlayerAnimationController Class
+    [Header("Sensor Settings")]
+    [SerializeField] private float Pullforce = 10f;
     
-    private Quaternion _targetRotation;
-    private Vector3 _currentMovementInput;
+    [SerializeField]private PullSensor _pullSensor;
+    [SerializeField]private PullSensor _pickupSensor;
     private PlayerInputController _playerInputController;
     private Rigidbody _rigidbody;
     private GameObject _armGamObject;
-    
-    private bool _jumpTriggered;
-    private int _jumpsLeft = 1;
+    private Quaternion _targetRotation;
+    private Vector3 _currentMovementInput;
     
     public bool MeleeTriggerd {get; private set;} // maybe for future purposes public now it could be private
     public Vector3 CurrentMovementInput => _currentMovementInput; // so other scripts can access it (maskmanager)
 
+    private List<LootEssence> pullLootEssences = new List<LootEssence>();
+    private int score = 0;
 
-    public event Action OnJumpPerformed; // For animatorController
-
+    public int Score
+    {
+        get { return score; }
+        private set
+        {
+            score = value;
+            ScoreChanged?.Invoke(score);
+        }
+    }
     private void Awake()
     {
         //Initiate the Components you need
@@ -49,6 +66,10 @@ public class PlayerController : MonoBehaviour
         _playerInputController.OnAttackButtonPressed += AttackButtonPressed;
         _playerInputController.OnCycleMaskButtonPressed += _maskManager.CycleMask; // Sent events directly to MaskManager
         _playerInputController.OnExecuteMaskAbilityButtonPressed += _maskManager.ExecuteMaskAbility;
+        _pullSensor.LootEntered += PullSensor_LootEntered;
+        _pullSensor.LootExited += PullSensor_LootExited;
+        _pickupSensor.LootEntered += PickupSensor_LootEntered;
+        _pickupSensor.LootExited += PickupSensor_LootExited;
         
         //Give Classes all Variables they need
         _groundController.Init(GetComponent<CapsuleCollider>(), transform);
@@ -63,6 +84,28 @@ public class PlayerController : MonoBehaviour
         _playerAnimationController.Init(modelAnimator,this,_playerInputController, _groundController);
     }
 
+    private void PickupSensor_LootEntered(LootEssence loot)
+    {
+        Score++;
+        pullLootEssences.Remove(loot);
+        PullSensor_LootExited(loot);
+        loot.PickedUp();
+    }
+    private void PickupSensor_LootExited(LootEssence loot)
+    {
+        pullLootEssences.Remove(loot);
+    }
+
+    private void PullSensor_LootEntered(LootEssence loot)
+    {
+        pullLootEssences.Add(loot);
+    }
+
+    private void PullSensor_LootExited(LootEssence loot)
+    {
+        pullLootEssences.Remove(loot);
+    }
+
     private void Update()
     {
         //safe the Movement direction
@@ -72,6 +115,13 @@ public class PlayerController : MonoBehaviour
             _targetRotation = Quaternion.LookRotation(_currentMovementInput);
         }
         _playerAnimationController.UpdateAnimations(); // read this line u understand
+        
+        foreach (LootEssence loot in pullLootEssences)
+        {
+            Vector3 direction = transform.position - loot.transform.position;
+            direction.Normalize();
+            loot.Rigidbody.AddForce(direction * Pullforce);
+        }
     }
 
     private void FixedUpdate()
@@ -125,6 +175,10 @@ public class PlayerController : MonoBehaviour
             _playerInputController.OnAttackButtonPressed -= AttackButtonPressed;
             _playerInputController.OnCycleMaskButtonPressed -= _maskManager.CycleMask;
             _playerInputController.OnExecuteMaskAbilityButtonPressed -= _maskManager.ExecuteMaskAbility;
+            _pullSensor.LootEntered -= PullSensor_LootEntered;
+            _pullSensor.LootExited -= PullSensor_LootExited;
+            _pickupSensor.LootEntered -= PickupSensor_LootEntered;
+            _pickupSensor.LootExited -= PickupSensor_LootExited;
         }
         _playerAnimationController.Cleanup();
     }

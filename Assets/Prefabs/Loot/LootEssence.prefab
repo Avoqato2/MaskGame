@@ -175,5 +175,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fbf5819c095474cb99f09cbeb92b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LootEssence
-  _upwardForce: 5
+  _upwardForce: 2
   _sideForce: 0.5

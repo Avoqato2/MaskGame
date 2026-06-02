@@ -4,16 +4,14 @@ using UnityEngine;
 public class ObjektPool<T> where T : MonoBehaviour
 {
     private T prefab;
-    private Rigidbody _rigidbodyPrefab;
     
     private List<T> pooledObjects = new List<T>();
 
-    public ObjektPool(T prefab, Rigidbody rigidbodyPrefab)
+    public ObjektPool(T prefab)
     {
         if (prefab == null)
             throw new System.ArgumentNullException(nameof(prefab), "ObjektPool prefab is null. Assign the prefab (EssencePrefab) in the EnemyHealth inspector.");
         this.prefab = prefab;
-        _rigidbodyPrefab = rigidbodyPrefab;
     }
 
     public T GetPoolObjekt()
@@ -22,6 +20,7 @@ public class ObjektPool<T> where T : MonoBehaviour
         {
             if(!poolObject.gameObject.activeInHierarchy)
             {
+                poolObject.transform.position = Vector3.zero;
                 poolObject.gameObject.SetActive(true);
                 return poolObject;
             }
@@ -36,10 +35,6 @@ public class ObjektPool<T> where T : MonoBehaviour
     {
         T instance = GameObject.Instantiate(prefab);
         instance.gameObject.SetActive(false);
-        _rigidbodyPrefab.useGravity = true;
-        /*_rigidbodyPrefab.linearVelocity = Vector3.zero;
-        instance.transform.position = new Vector3(instance.transform.position.x, instance.transform.position.y, instance.transform.position.z);
-        instance.transform.rotation = Quaternion.identity;*/
         pooledObjects.Add(instance);
         return instance;
     }

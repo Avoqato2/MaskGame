@@ -18,6 +18,12 @@ public class LootEssence : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_rb != null)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            _rb.constraints = RigidbodyConstraints.None;
+        }
         JumpOut();
     }
 
@@ -27,6 +33,7 @@ public class LootEssence : MonoBehaviour
     }
     private void JumpOut()
     {
+        _rb.linearVelocity = Vector3.zero;
         float randomX = Random.Range(-_sideForce, _sideForce);
         float randomZ = Random.Range(-_sideForce, _sideForce);
         float randomUp = Random.Range(_upwardForce * 0.8f, _upwardForce * 1.2f);
@@ -37,7 +44,6 @@ public class LootEssence : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer != LayerMask.NameToLayer("Ground")) return;
-        _rb.useGravity = false;
         _rb.linearVelocity = Vector3.zero;
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         transform.rotation = Quaternion.identity;

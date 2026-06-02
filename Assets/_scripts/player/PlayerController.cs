@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         Score++;
         pullLootEssences.Remove(loot);
-        //Destroy(loot.gameObject);
+        PullSensor_LootExited(loot);
         loot.PickedUp();
     }
     private void PickupSensor_LootExited(LootEssence loot)

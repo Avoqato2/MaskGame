@@ -26,7 +26,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemyDamage _enemyAttack;
     
     [SerializeField] private LootEssence EssencePrefab; // Hier ziehst du dein neues Prefab rein!
-    [SerializeField] private Rigidbody _rigidbodyPrefab; // Hier ziehst du dein neues Rigidbody Prefab rein!
     
     private Enemysensor _enemysensor;
     private PlayerController _playerController;
@@ -38,7 +37,7 @@ public class EnemyController : MonoBehaviour
     {
         if (_lootPool == null)
         {
-            _lootPool = new ObjektPool<LootEssence>(EssencePrefab, _rigidbodyPrefab);
+            _lootPool = new ObjektPool<LootEssence>(EssencePrefab);
         }
         _rigidbody = GetComponent<Rigidbody>();
         _enemyHealth.Init(gameObject, _lootPool);

@@ -938,7 +938,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -1692,7 +1692,6 @@ MonoBehaviour:
     Damage: 10
     DamageCooldown: 1.5
   EssencePrefab: {fileID: 1126438200413365551, guid: fea8fdba76ad347b2a1aae93a273dcc3, type: 3}
-  _rigidbodyPrefab: {fileID: 4641594466222970677, guid: fea8fdba76ad347b2a1aae93a273dcc3, type: 3}
 --- !u!136 &1673338810
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1908,7 +1907,7 @@ MonoBehaviour:
       AttackCooldown: 1.5
       ProjectileOffset: 2
   _playerUI: {fileID: 452335686}
-  Pullforce: 10
+  Pullforce: 5
   _pullSensor: {fileID: 376921058}
   _pickupSensor: {fileID: 502552337}
 --- !u!1 &3065369315781161702

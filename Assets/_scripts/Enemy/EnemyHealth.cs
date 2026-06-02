@@ -41,7 +41,6 @@ public class EnemyHealth
         }
         
         _currentHealth -= damageAmount;
-        Debug.Log("Gegner hat Schaden bekommen! Rest: " + _currentHealth);
         _nextPossibleHitTime = Time.time + ApplyDamageCooldown;
 
         if (_currentHealth <= 0)
@@ -60,6 +59,6 @@ public class EnemyHealth
             LootEssence loot = _sharedLootPool.GetPoolObjekt(spawnPosition, Quaternion.identity);
             loot.transform.position = spawnPosition;
         }
-        _enemyObject.SetActive(false);
+        GameObject.Destroy(_enemyObject);
     }
 }

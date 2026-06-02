@@ -144,7 +144,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8878301063165710110}
@@ -406,9 +406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd903e17f1ae3c34490acd37c66975ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _moveSpeed: 3
+  _moveSpeed: 4
   _turnSpeed: 7
-  _aggroRange: 8
+  _aggroRange: 4
   _aggroCheckInterval: 0.5
   _enemyHealth:
     MaxHealth: 100
@@ -419,3 +419,4 @@ MonoBehaviour:
     Damage: 10
     DamageCooldown: 1.5
   EssencePrefab: {fileID: 1126438200413365551, guid: fea8fdba76ad347b2a1aae93a273dcc3, type: 3}
+  _enemysensor: {fileID: 411947699963274586}

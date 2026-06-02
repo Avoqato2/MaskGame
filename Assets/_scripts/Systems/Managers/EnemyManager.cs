@@ -1,36 +1,57 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour
 {
-   [SerializeField]private GameObject _enemyPrefab;
-   public int NumberOfEnemies = 10;
-   
-   public float Offset = 15f;
-   
-   private PlayerController _playerController;
-   
-   private List<EnemyController> EnemysList = new List<EnemyController>();
-   
-   private void Update()
-   {
-       
-   }
+    public static event Action AllEnemiesDead;
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Transform _parentContainer;
+    [SerializeField] private int  _NumbOfEnemies = 10;
+    [SerializeField] private float _creationRadius;
+    [SerializeField] private float _creationDelayS;
+    
+    private int _realNumbOfEnemies;
+    private bool _enemySpawning = true;
+    private int _deadEnemies = 0;
+    
 
-   private GameObject CreateEnemys()
-   {
-       for (int i = 0; i < NumberOfEnemies; i++)
-       {
-           
-       }
-       return null;
-   }
+    void Start()
+    {
+        _realNumbOfEnemies = _NumbOfEnemies;
+        StartCoroutine(CreatePickupRoutine());
+        EnemyController.OnEnemyDead += CountDeadEnemies;
+    }
+    
+    private IEnumerator CreatePickupRoutine()
+    {
+        while (_enemySpawning)
+        {
+            CreatePickup();
+            _NumbOfEnemies--;
+            if (_NumbOfEnemies <= 0)
+            {
+                _enemySpawning = false;
+            }
+            yield return new WaitForSeconds(_creationDelayS);
+        }
+    }
 
-   private Vector3 GetPlayersPositionWithOffest()
-   {
-       float OffsetRadius = Offset;
-       Vector3 _playerPosition = _playerController.transform.position + new Vector3(0, OffsetRadius, 0);
-       return _playerPosition;
-   }
+    private void CountDeadEnemies(int deadEnemie)
+    {
+        _deadEnemies += deadEnemie;
+        if(_deadEnemies >= _realNumbOfEnemies)
+        {
+            AllEnemiesDead?.Invoke();
+        }
+    }
+
+    private GameObject CreatePickup()
+    {
+        Vector2 position2D = Random.insideUnitCircle * _creationRadius;
+        Vector3 position = new Vector3(position2D.x, 0, position2D.y);
+        GameObject enemy = Instantiate(_enemyPrefab, position, Quaternion.identity, _parentContainer);
+        return enemy;
+    }
 }

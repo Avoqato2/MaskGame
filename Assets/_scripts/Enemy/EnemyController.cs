@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public static event Action<int> OnEnemyDead;
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _turnSpeed;
@@ -27,7 +28,7 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField] private LootEssence EssencePrefab; // Hier ziehst du dein neues Prefab rein!
     
-    private Enemysensor _enemysensor;
+    [SerializeField]private Enemysensor _enemysensor;
     private PlayerController _playerController;
     private Rigidbody _rigidbody;
     
@@ -44,10 +45,8 @@ public class EnemyController : MonoBehaviour
         _targetRotation = _rigidbody.rotation;
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        GameObject enmysenserObj = GameObject.Find("EnemySensor");
-        if (playerObj != null || enmysenserObj != null)
+        if (playerObj != null)
         {
-            _enemysensor = enmysenserObj.GetComponent<Enemysensor>();
             _playerController = playerObj.GetComponent<PlayerController>();
         }
         
@@ -147,6 +146,12 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        OnEnemyDead?.Invoke(1);
+    }
+
     // also if the Player stays in enemy try hitting them
     private void OnTriggerStay(Collider other)
     {

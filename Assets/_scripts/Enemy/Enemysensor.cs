@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -24,6 +25,10 @@ public class Enemysensor : MonoBehaviour
             IsInrange = false;
         }
     }
-    
+
+    private void OnDisable()
+    {
+        IsInrange = false;
+    }
 }
 

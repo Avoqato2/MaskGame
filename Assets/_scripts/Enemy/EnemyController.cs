@@ -67,7 +67,19 @@ public class EnemyController : MonoBehaviour
                 _targetRotation = Quaternion.LookRotation(_targetDirection);
             }
         }
-        
+    }
+    
+    private void OnEnable()
+    {
+        if (_enemyHealth != null)
+        {
+            _enemyHealth.ResetHealth();
+        }
+        _hasAggro = false; 
+        if (_rigidbody != null)
+        {
+            _rigidbody.linearVelocity = Vector3.zero;
+        }
     }
     /// <summary>
     /// Check if Player is in Range

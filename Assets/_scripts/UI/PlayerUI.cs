@@ -23,7 +23,7 @@ public class PlayerUI : MonoBehaviour
     private void PlayerScoreChanged(int score)
     {
         strb.Clear();
-        strb.Append("Essence: ");
+        strb.Append("Essence : ");
         strb.Append(score);
         ScoreLable.text = strb.ToString();
     }

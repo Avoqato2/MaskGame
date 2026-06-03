@@ -432,8 +432,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In einer stillen Welt aus Holz und Faden wanderten gesichtlose Puppen durch
-    ewige Tage.
+  m_text: Little being....
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b76d452fe178249539985d327447eafc, type: 2}
   m_sharedMaterial: {fileID: 4420592209527198330, guid: b76d452fe178249539985d327447eafc, type: 2}
@@ -727,11 +726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Freude
-
-    Wut
-
-    Angst'
+  m_text: I have put you in this world to seek a salvation for your suffering....
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b76d452fe178249539985d327447eafc, type: 2}
   m_sharedMaterial: {fileID: 4420592209527198330, guid: b76d452fe178249539985d327447eafc, type: 2}
@@ -887,7 +882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Doch keine seiner Masken lebte je...\n\nbis eine Puppe begann zu f\xFChlen."
+  m_text: Go on now, the path is long and trechourous, but I am sure you will prevail....
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b76d452fe178249539985d327447eafc, type: 2}
   m_sharedMaterial: {fileID: 4420592209527198330, guid: b76d452fe178249539985d327447eafc, type: 2}
@@ -1024,7 +1019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xDCber ihnen wachte der Maskenbauer, der jede Nacht neue Gesichter schnitzte."
+  m_text: Fragile Soul...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b76d452fe178249539985d327447eafc, type: 2}
   m_sharedMaterial: {fileID: 4420592209527198330, guid: b76d452fe178249539985d327447eafc, type: 2}

@@ -55,7 +55,9 @@ public class AbilityAttack
         {
             shootDirection = transform.forward;
         }
-        GameObject SpawnedProjectile = GameObject.Instantiate(projectile, transform.position + shootDirection.normalized * ProjectileOffset, Quaternion.identity);
+        
+        Quaternion projectileRotation = Quaternion.LookRotation(shootDirection);
+        GameObject SpawnedProjectile = GameObject.Instantiate(projectile, transform.position + shootDirection.normalized * ProjectileOffset, projectileRotation);
         SpawnedProjectile.transform.position = transform.position + (shootDirection * ProjectileOffset);
         SpawnedProjectile.transform.position = new Vector3(SpawnedProjectile.transform.position.x ,SpawnedProjectile.transform.localScale.y /2, SpawnedProjectile.transform.position.z);;
         Projectile projectileMovement = SpawnedProjectile.GetComponent<Projectile>();

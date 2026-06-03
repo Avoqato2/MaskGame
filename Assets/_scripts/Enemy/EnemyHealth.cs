@@ -26,6 +26,12 @@ public class EnemyHealth
 
         _sharedLootPool = sharedLootPool;
     }
+    
+    public void ResetHealth() 
+    {
+        _currentHealth = MaxHealth;
+        _nextPossibleHitTime = 0f;
+    }
 
     public void TakeDamage(float damageAmount) 
     {
@@ -35,7 +41,6 @@ public class EnemyHealth
         }
         
         _currentHealth -= damageAmount;
-        Debug.Log("Gegner hat Schaden bekommen! Rest: " + _currentHealth);
         _nextPossibleHitTime = Time.time + ApplyDamageCooldown;
 
         if (_currentHealth <= 0)
@@ -51,7 +56,7 @@ public class EnemyHealth
         {
             Vector3 spawnPosition = _enemyObject.transform.position + Vector3.up;
 
-            LootEssence loot = _sharedLootPool.GetPoolObjekt();
+            LootEssence loot = _sharedLootPool.GetPoolObjekt(spawnPosition, Quaternion.identity);
             loot.transform.position = spawnPosition;
         }
         GameObject.Destroy(_enemyObject);

@@ -386,6 +386,8 @@ GameObject:
   - component: {fileID: 252792468}
   - component: {fileID: 252792470}
   - component: {fileID: 252792469}
+  - component: {fileID: 252792471}
+  - component: {fileID: 252792472}
   m_Layer: 5
   m_Name: FirstParagraph
   m_TagString: Untagged
@@ -512,6 +514,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252792467}
   m_CullTransparentMesh: 1
+--- !u!225 &252792471
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252792467}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &252792472
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252792467}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &750794844
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +735,8 @@ GameObject:
   - component: {fileID: 1296155951}
   - component: {fileID: 1296155950}
   - component: {fileID: 1296155949}
+  - component: {fileID: 1296155952}
+  - component: {fileID: 1296155953}
   m_Layer: 5
   m_Name: ThirdParagraph
   m_TagString: Untagged
@@ -825,6 +863,40 @@ RectTransform:
   m_AnchoredPosition: {x: 26.6257, y: 0.0000095367}
   m_SizeDelta: {x: 900, y: 165.8222}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1296155952
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296155948}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1296155953
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296155948}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1337656203
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +908,8 @@ GameObject:
   - component: {fileID: 1337656204}
   - component: {fileID: 1337656206}
   - component: {fileID: 1337656205}
+  - component: {fileID: 1337656207}
+  - component: {fileID: 1337656208}
   m_Layer: 5
   m_Name: FourthParagraph
   m_TagString: Untagged
@@ -962,6 +1036,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337656203}
   m_CullTransparentMesh: 1
+--- !u!225 &1337656207
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337656203}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1337656208
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337656203}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1415500532
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +1081,8 @@ GameObject:
   - component: {fileID: 1415500533}
   - component: {fileID: 1415500535}
   - component: {fileID: 1415500534}
+  - component: {fileID: 1415500536}
+  - component: {fileID: 1415500537}
   m_Layer: 5
   m_Name: SecondParagraph
   m_TagString: Untagged
@@ -1099,6 +1209,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415500532}
   m_CullTransparentMesh: 1
+--- !u!225 &1415500536
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415500532}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1415500537
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415500532}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1486546847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1254,8 @@ GameObject:
   - component: {fileID: 1486546848}
   - component: {fileID: 1486546850}
   - component: {fileID: 1486546849}
+  - component: {fileID: 1486546851}
+  - component: {fileID: 1486546852}
   m_Layer: 5
   m_Name: GameTitle
   m_TagString: Untagged
@@ -1236,6 +1382,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486546847}
   m_CullTransparentMesh: 1
+--- !u!225 &1486546851
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486546847}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1486546852
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486546847}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1515332441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,20 +1539,20 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 5412283904816024940, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
-    value: {fileID: 252792467}
-  - key: {fileID: 1464710452087786232, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
-    value: {fileID: 1415500532}
-  - key: {fileID: 1689205325976002438, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
-    value: {fileID: 1296155948}
   - key: {fileID: -3923823705636397384, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
     value: {fileID: 750794844}
-  - key: {fileID: -4531984823994810729, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
-    value: {fileID: 1486546847}
-  - key: {fileID: 8379290182181193734, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
-    value: {fileID: 1337656203}
   - key: {fileID: -911887717014250161, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
     value: {fileID: 1142615877}
+  - key: {fileID: -413233760336756458, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
+    value: {fileID: 252792472}
+  - key: {fileID: -804075691079965698, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
+    value: {fileID: 1415500537}
+  - key: {fileID: -8476860600532800311, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
+    value: {fileID: 1296155953}
+  - key: {fileID: 7325159353109744657, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
+    value: {fileID: 1337656208}
+  - key: {fileID: 4843662648270881384, guid: e9814778f9b624f09b05c002732cf39d, type: 2}
+    value: {fileID: 1486546852}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1854078119

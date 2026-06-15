@@ -1,24 +1,30 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] private AudioSource clickSound;
     public void StartClicked()
     {
-        SceneManager.LoadScene("IntroStory");
+        StartCoroutine(LoadSceneAfterSound("IntroStory"));
     }
     
     public void QuitClicked()
     {
         Debug.Log("Quit button clicked");
         Application.Quit();
+    }
+    
+    private IEnumerator LoadSceneAfterSound(string sceneName)
+    {
+        if (clickSound != null)
+        {
+            clickSound.Play();
+            yield return new WaitForSeconds(clickSound.clip.length);
+        }
+        
+        SceneManager.LoadScene(sceneName);
     }
 }

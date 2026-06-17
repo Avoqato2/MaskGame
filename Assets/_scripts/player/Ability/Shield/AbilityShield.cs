@@ -3,6 +3,8 @@ using System;
 [Serializable]
 public class AbilityShield
 {
+    public AudioSource ShieldAudio;
+    public AudioClip ShieldActivateClip;
     public float ShieldTime = 2f;
     public float ShieldCooldown = 3f;
     
@@ -24,6 +26,11 @@ public class AbilityShield
             IsInvincible = true;
             _shieldEndTime = Time.time + ShieldTime;
             _shield.SetActive(IsInvincible);
+            
+            if(ShieldAudio != null && ShieldActivateClip != null)
+            {
+                ShieldAudio.PlayOneShot(ShieldActivateClip);
+            }
         }
     }
     public void UpdateShield()

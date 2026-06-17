@@ -7209,6 +7209,8 @@ MonoBehaviour:
     CurrentMask: 0
     PlayerUI: {fileID: 452335686}
     _abilityDash:
+      dashAudioSource: {fileID: 7733810997777211778}
+      dashActivateClip: {fileID: 8300000, guid: 7dc972443bebc419db56900a7191f3fb, type: 3}
       DashSpeed: 20
       DashTime: 0.25
       DashCooldown: 1.5

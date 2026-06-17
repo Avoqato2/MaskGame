@@ -3,6 +3,8 @@ using System;
 [Serializable]
 public class AbilityDash 
 {
+    public AudioSource dashAudioSource;
+    public AudioClip dashActivateClip;
     public float DashSpeed = 20f;
     public float DashTime = 0.25f;
     public float DashCooldown = 1.5f;
@@ -24,6 +26,11 @@ public class AbilityDash
         {
             IsDashing = true;
             _dashEndTime = Time.time + DashTime;
+            
+            if(dashAudioSource != null && dashActivateClip != null)
+            {
+                dashAudioSource.PlayOneShot(dashActivateClip);
+            }
         }
     }
     

@@ -288,8 +288,16 @@ MonoBehaviour:
   textComponent: {fileID: 2025146036}
   playerInputController: {fileID: 1562707727}
   lines:
-  - Welcome back, little one.
-  - Ready for something new?
+  - 'Welcome back, little one. [K]'
+  - 'Ready for something new? [K]'
+  - 'Go on now, into the enterance behind you! [K]'
+  - 'Bring me the essence, from the fiends that will await you.  [K]'
+  - 'And in return i will make you stronger.  [K]'
+  - 'WASD - Movement [K] '
+  - 'Left-Click - Punch [K] '
+  - 'Right-Click - Mask Ability [K] '
+  - 'R - Change Mask [K] '
+  - 'SPACE - Jump/Double Jump [K] '
   textSpeed: 0.1
 --- !u!1 &111860407
 GameObject:
@@ -1229,7 +1237,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 3}
+  m_Size: {x: 1, y: 1, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1083348664
 MeshRenderer:
@@ -1238,7 +1246,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083348662}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1256,7 +1264,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 980f4f484fe1d4e75969a4b78113c2ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1296,13 +1304,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083348662}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -3.65, y: 1.5, z: 2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.9302268, z: -0, w: 0.36698514}
+  m_LocalPosition: {x: -3.97, y: -0.61, z: 1.18}
+  m_LocalScale: {x: 1.7935, y: 2.7575, z: 3.0352457}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 273922422}
-  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -136.94, z: 0}
 --- !u!114 &1083348667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,10 +2122,14 @@ MonoBehaviour:
     CurrentMask: 0
     PlayerUI: {fileID: 0}
     _abilityDash:
+      dashAudioSource: {fileID: 0}
+      dashActivateClip: {fileID: 0}
       DashSpeed: 20
       DashTime: 0.25
       DashCooldown: 1.5
     _abilityShield:
+      ShieldAudio: {fileID: 0}
+      ShieldActivateClip: {fileID: 0}
       ShieldTime: 2
       ShieldCooldown: 3
     _abilityAttack:
@@ -2798,7 +2810,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bbf5aee34fbe46feacb36ee633aa443, type: 2}
+  - {fileID: 2100000, guid: 980f4f484fe1d4e75969a4b78113c2ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
